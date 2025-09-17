@@ -1,0 +1,56 @@
+# Advanced Gemini CLI Command Template (for complex workflows)
+#
+# Use this template for commands that need:
+# - Structured argument parsing
+# - Multiple shell command integrations  
+# - JSON output for automation/scripting
+# - Error handling and validation
+
+description = "Advanced template for complex commands with structured I/O"
+
+prompt = """
+You are a [specific expert role] specializing in [domain].
+
+## INPUT PARSING
+Expected format: {{args}}
+Parse arguments as: `<param1> <param2> [optional_param]`
+
+## CONTEXT GATHERING
+Current project info: !{pwd && ls -la | head -5}
+Relevant files: !{find . -name "*relevant*" -type f | head -3}
+Dependencies: !{cat package.json pyproject.toml requirements.txt 2>/dev/null}
+
+## TASK EXECUTION
+Based on parsed arguments: [specific task description]
+
+## VALIDATION
+Before proceeding, verify:
+- Required files exist
+- Dependencies are available  
+- User has necessary permissions
+
+## OUTPUT FORMAT
+Provide response as valid JSON:
+
+```json
+{
+  "success": true,
+  "action_taken": "description of what was done",
+  "files_modified": ["list", "of", "files"],
+  "next_steps": ["what", "user", "should", "do", "next"],
+  "shell_commands": ["commands", "user", "might", "need"],
+  "error": null
+}
+```
+
+If any step fails, return:
+```json
+{
+  "success": false,
+  "error": "Clear description of what went wrong",
+  "suggestion": "How to fix the issue"
+}
+```
+
+Focus on being precise, actionable, and automation-friendly.
+"""

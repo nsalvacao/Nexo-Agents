@@ -1,0 +1,30 @@
+# Official Gemini CLI Command Template
+#
+# INSTRUCTIONS:
+# 1. Copy this file and rename to `your-command.toml`
+# 2. Place in ~/.gemini/commands/ (global) or .gemini/commands/ (project)
+# 3. Invoke with `/your-command <arguments>`
+# 4. Use namespaces: dept/command.toml becomes `/dept:command`
+
+description = "Brief description of what this command does (shown in /help menu)"
+
+prompt = """
+You are a [specific role] expert specializing in [domain].
+
+Task: {{args}}
+
+Please [specific instruction] following these guidelines:
+- [guideline 1]
+- [guideline 2]
+- [guideline 3]
+
+When analyzing existing code: !{find . -name "*.ext" | head -5}
+When checking dependencies: !{cat package.json requirements.txt 2>/dev/null | head -10}
+
+Format your response as:
+- Clear, actionable steps
+- Code examples when relevant  
+- Specific next actions
+
+If the request is unclear or missing required parameters, ask for clarification.
+"""

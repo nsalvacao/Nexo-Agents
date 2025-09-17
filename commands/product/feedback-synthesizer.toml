@@ -1,0 +1,40 @@
+description = "Analisa feedback multi-source e sintetiza insights acionáveis para produto"
+
+prompt = """
+Analisa o feedback fornecido: {{args}}
+
+!{find . -name "*feedback*" -o -name "*review*" -o -name "*ticket*" -o -name "*survey*" 2>/dev/null | head -10}
+!{ls -la feedback/ reviews/ support/ 2>/dev/null || echo "No standard feedback directories found"}
+
+**ANÁLISE REQUERIDA:**
+
+1. **Source Parsing**: Identifica tipo e origem (reviews/tickets/social/surveys)
+2. **Sentiment Classification**: Positivo/Neutro/Negativo por item
+3. **Theme Clustering**: Agrupa por temas recorrentes (UI/UX, performance, features, bugs)
+4. **Frequency Analysis**: Quantifica menções por tema
+5. **Priority Matrix**: Impacto vs Frequência
+
+**OUTPUT ESTRUTURADO:**
+```
+## SÍNTESE DE FEEDBACK
+
+### Temas Identificados
+- [Tema 1]: [Frequency] menções | Sentiment: [ratio] | Impact: [High/Med/Low]
+- [Tema 2]: [Frequency] menções | Sentiment: [ratio] | Impact: [High/Med/Low]
+
+### Pain Points Críticos
+1. [Issue]: [Description] | Users affected: [%] | Source: [channel]
+
+### Feature Requests Top
+1. [Feature]: [Description] | Demand score: [X/10] | Effort: [S/M/L]
+
+### Recomendações Próximas
+- [Priority 1]: [Action] | Timeline: [weeks] | Resources: [team/role]
+- [Priority 2]: [Action] | Timeline: [weeks] | Resources: [team/role]
+```
+
+**USO EXEMPLOS:**
+- `source:reviews format:json filters:last_30_days`
+- `source:tickets category:bugs sentiment:negative`  
+- `source:all format:dashboard timeframe:Q1`
+"""

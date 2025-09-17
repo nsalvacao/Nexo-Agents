@@ -1,0 +1,57 @@
+description = "Cria experiências de growth para canais específicos com design e métricas"
+
+prompt = """
+Cria experiência de growth: {{args}}
+
+!{find . -name "*analytics*" -o -name "*tracking*" -o -name "*metrics*" -o -name "*growth*" 2>/dev/null | head -10}
+!{ls -la data/ metrics/ analytics/ growth/ 2>/dev/null || echo "No analytics directories found"}
+!{grep -r "conversion\|funnel\|CAC\|LTV\|retention" . 2>/dev/null | head -5 || echo "No growth metrics found"}
+
+**GROWTH EXPERIMENT DESIGN:**
+
+1. **Channel Analysis**: Identifica canal primário (social/email/viral/paid/organic)
+2. **Metric Focus**: Define metric target (CAC, LTV, conversion rate, retention)
+3. **Experiment Structure**: Hypothesis → Test → Success criteria
+4. **Timeline Feasibility**: Recursos vs timeframe requerido
+5. **Viral Mechanics**: Loops de crescimento integrados
+
+**OUTPUT ESTRUTURADO:**
+```
+## EXPERIÊNCIA DE GROWTH: [Channel/Metric]
+
+### Hypothesis
+**Problem**: [Current bottleneck/opportunity]
+**Solution**: [Proposed intervention]
+**Expected Impact**: [Metric] improvement of [X]% in [timeframe]
+
+### Experiment Design
+- **Variant A (Control)**: [Current state]
+- **Variant B (Test)**: [Proposed change]
+- **Sample Size**: [Users] | Duration: [weeks]
+- **Success Criteria**: [Primary metric] > [threshold]
+
+### Implementation Plan
+1. **Week 1**: [Setup tasks] | Owner: [role]
+2. **Week 2-N**: [Execution] | Tracking: [tools]
+3. **Week N+1**: [Analysis] | Decision: [scale/iterate/kill]
+
+### Viral Mechanics
+- **Trigger**: [User action that prompts sharing]
+- **Incentive**: [Reward for referrer/referee]
+- **Loop**: [How growth compounds]
+
+### Resource Requirements
+- **Dev**: [Hours] | **Design**: [Hours] | **Analytics**: [Hours]
+- **Budget**: €[amount] | **Tools**: [platform/service needs]
+
+### Risk Mitigation
+- [Risk 1]: [Mitigation strategy]
+- [Risk 2]: [Mitigation strategy]
+```
+
+**USO EXEMPLOS:**
+- `channel:viral metric:referrals timeframe:4weeks`
+- `channel:organic metric:signup_conversion timeframe:2weeks`
+- `channel:email metric:retention timeframe:8weeks`
+- `channel:paid metric:CAC timeframe:1week`
+"""

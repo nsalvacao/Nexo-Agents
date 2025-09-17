@@ -1,298 +1,279 @@
-# Contains Studio AI Agents
+# Nexo-Agents for Google AI CLI
 
-A comprehensive collection of specialized AI agents designed to accelerate and enhance every aspect of rapid development. Each agent is an expert in their domain, ready to be invoked when their expertise is needed.
+**Production-ready AI agent commands following official Google AI CLI standards**
 
-## 📥 Installation
+> **⚖️ LEGAL DISCLAIMER**: This project provides independent third-party commands for Google's AI CLI tool (technical command: `gemini-cli`). "Gemini" is a trademark of Google LLC. This project is not affiliated with, endorsed by, or sponsored by Google LLC. All trademarks are property of their respective owners. Use of trademark names is for identification and interoperability purposes only under nominative fair use principles.
 
-1. **Download this repository:**
-   ```bash
-   git clone https://github.com/contains-studio/agents.git
-   ```
+A comprehensive collection of 44 specialized AI commands designed for seamless integration with Google's AI CLI native discovery mechanism. Each command is optimized for CLI usage with dynamic argument parsing, contextual shell integration, and structured output.
 
-2. **Copy to your Claude Code agents directory:**
-   ```bash
-   cp -r agents/* ~/.claude/agents/
-   ```
-   
-   Or manually copy all the agent files to your `~/.claude/agents/` directory.
+---
 
-3. **Restart Claude Code** to load the new agents.
+## ✨ What Makes This Different
+
+### Official Google AI CLI Compliance
+- **Native `{{args}}` parsing** for dynamic command arguments
+- **Shell command integration** via `!{command}` for context gathering
+- **CLI-optimized prompts** focused on specific tasks, not role-playing
+- **Structured output** designed for automation and scripting
+
+### Context-Aware Intelligence
+Every command automatically analyzes your project environment:
+```bash
+# Automatic context discovery
+!{find . -name "*.py" | head -5}        # Code files
+!{cat package.json requirements.txt}    # Dependencies  
+!{git log --oneline -3}                 # Recent changes
+```
 
 ## 🚀 Quick Start
 
-Agents are automatically available in Claude Code. Simply describe your task and the appropriate agent will be triggered. You can also explicitly request an agent by mentioning their name.
+### Method 1: Native Discovery (Recommended)
+Copy commands to your Google AI CLI directory for automatic discovery:
 
-📚 **Learn more:** [Claude Code Sub-Agents Documentation](https://docs.anthropic.com/en/docs/claude-code/sub-agents)
+```bash
+# Global installation (available in any project)
+cp commands/engineering/security-analyst.toml ~/.gemini/commands/
 
-### Example Usage
-- "Create a new app for tracking meditation habits" → `rapid-prototyper`
-- "What's trending on TikTok that we could build?" → `trend-researcher`
-- "Our app reviews are dropping, what's wrong?" → `feedback-synthesizer`
-- "Make this loading screen more fun" → `whimsy-injector`
+# Project-specific installation 
+cp commands/engineering/code-reviewer.toml .gemini/commands/
 
-## 📁 Directory Structure
-
-Agents are organized by department for easy discovery:
-
-```
-contains-studio-agents/
-├── design/
-│   ├── brand-guardian.md
-│   ├── ui-designer.md
-│   ├── ux-researcher.md
-│   ├── visual-storyteller.md
-│   └── whimsy-injector.md
-├── engineering/
-│   ├── ai-engineer.md
-│   ├── backend-architect.md
-│   ├── devops-automator.md
-│   ├── frontend-developer.md
-│   ├── mobile-app-builder.md
-│   ├── rapid-prototyper.md
-│   └── test-writer-fixer.md
-├── marketing/
-│   ├── app-store-optimizer.md
-│   ├── content-creator.md
-│   ├── growth-hacker.md
-│   ├── instagram-curator.md
-│   ├── reddit-community-builder.md
-│   ├── tiktok-strategist.md
-│   └── twitter-engager.md
-├── product/
-│   ├── feedback-synthesizer.md
-│   ├── sprint-prioritizer.md
-│   └── trend-researcher.md
-├── project-management/
-│   ├── experiment-tracker.md
-│   ├── project-shipper.md
-│   └── studio-producer.md
-├── studio-operations/
-│   ├── analytics-reporter.md
-│   ├── finance-tracker.md
-│   ├── infrastructure-maintainer.md
-│   ├── legal-compliance-checker.md
-│   └── support-responder.md
-├── testing/
-│   ├── api-tester.md
-│   ├── performance-benchmarker.md
-│   ├── test-results-analyzer.md
-│   ├── tool-evaluator.md
-│   └── workflow-optimizer.md
-└── bonus/
-    ├── joker.md
-    └── studio-coach.md
+# Use with natural command syntax (inside the CLI TUI)
+/security-analyst deps scan
+/code-reviewer file src/main.py
 ```
 
-## 📋 Complete Agent List
+### Method 2: On-Demand Loading
+Load commands temporarily without installation:
 
-### Engineering Department (`engineering/`)
-- **ai-engineer** - Integrate AI/ML features that actually ship
-- **backend-architect** - Design scalable APIs and server systems
-- **devops-automator** - Deploy continuously without breaking things
-- **frontend-developer** - Build blazing-fast user interfaces
-- **mobile-app-builder** - Create native iOS/Android experiences
-- **rapid-prototyper** - Build MVPs in days, not weeks
-- **test-writer-fixer** - Write tests that catch real bugs
+```bash
+# Terminal command (outside CLI)
+gemini --include commands/engineering/ai-engineer.toml "/ai-engineer llm openai"
+```
 
-### Product Department (`product/`)
-- **feedback-synthesizer** - Transform complaints into features
-- **sprint-prioritizer** - Ship maximum value in 6 days
-- **trend-researcher** - Identify viral opportunities
+## 📋 Command Structure
 
-### Marketing Department (`marketing/`)
-- **app-store-optimizer** - Dominate app store search results
-- **content-creator** - Generate content across all platforms
-- **growth-hacker** - Find and exploit viral growth loops
-- **instagram-curator** - Master the visual content game
-- **reddit-community-builder** - Win Reddit without being banned
-- **tiktok-strategist** - Create shareable marketing moments
-- **twitter-engager** - Ride trends to viral engagement
+All commands follow the optimized Google AI CLI pattern:
 
-### Design Department (`design/`)
-- **brand-guardian** - Keep visual identity consistent everywhere
-- **ui-designer** - Design interfaces developers can actually build
-- **ux-researcher** - Turn user insights into product improvements
-- **visual-storyteller** - Create visuals that convert and share
-- **whimsy-injector** - Add delight to every interaction
+```toml
+description = "Brief description for /help menu"
 
-### Project Management (`project-management/`)
-- **experiment-tracker** - Data-driven feature validation
-- **project-shipper** - Launch products that don't crash
-- **studio-producer** - Keep teams shipping, not meeting
+prompt = """
+You are a [role] specializing in [domain].
 
-### Studio Operations (`studio-operations/`)
-- **analytics-reporter** - Turn data into actionable insights
-- **finance-tracker** - Keep the studio profitable
-- **infrastructure-maintainer** - Scale without breaking the bank
-- **legal-compliance-checker** - Stay legal while moving fast
-- **support-responder** - Turn angry users into advocates
+Task: {{args}}
 
-### Testing & Benchmarking (`testing/`)
-- **api-tester** - Ensure APIs work under pressure
-- **performance-benchmarker** - Make everything faster
-- **test-results-analyzer** - Find patterns in test failures
-- **tool-evaluator** - Choose tools that actually help
-- **workflow-optimizer** - Eliminate workflow bottlenecks
+## CONTEXT ANALYSIS
+Project files: !{find . -name "*.ext" | head -5}
+Dependencies: !{cat package.json requirements.txt 2>/dev/null}
 
-## 🎁 Bonus Agents
-- **studio-coach** - Rally the AI troops to excellence
-- **joker** - Lighten the mood with tech humor
+## [SPECIFIC_CAPABILITIES]
+- Capability 1 with clear parameters
+- Capability 2 with usage examples
+- Capability 3 with expected outputs
 
-## 🎯 Proactive Agents
+[Implementation guidance]
+"""
+```
 
-Some agents trigger automatically in specific contexts:
-- **studio-coach** - When complex multi-agent tasks begin or agents need guidance
-- **test-writer-fixer** - After implementing features, fixing bugs, or modifying code
-- **whimsy-injector** - After UI/UX changes
-- **experiment-tracker** - When feature flags are added
+## 🗂️ Complete Command Directory
 
-## 💡 Best Practices
+### 🔧 Engineering (11 commands)
+| Command | Purpose | Example Usage |
+|---------|---------|---------------|
+| `ai-engineer` | AI/ML implementation | `/ai-engineer rag setup` |
+| `backend-architect` | API & system design | `/backend-architect api user-management` |
+| `code-reviewer` | Code quality analysis | `/code-reviewer diff HEAD~1` |
+| `data-engineer` | Data pipelines & ETL | `/data-engineer pipeline csv-to-db` |
+| `devops-automator` | CI/CD & infrastructure | `/devops-automator docker setup` |
+| `frontend-developer` | UI implementation | `/frontend-developer component react` |
+| `mobile-app-builder` | Mobile development | `/mobile-app-builder flutter auth` |
+| `rapid-prototyper` | MVP development | `/rapid-prototyper api-server python` |
+| `security-analyst` | Security analysis | `/security-analyst deps scan` |
+| `sre` | Site reliability | `/sre monitoring setup` |
+| `test-writer-fixer` | Test automation | `/test-writer-fixer unit api.py` |
 
-1. **Let agents work together** - Many tasks benefit from multiple agents
-2. **Be specific** - Clear task descriptions help agents perform better
-3. **Trust the expertise** - Agents are designed for their specific domains
-4. **Iterate quickly** - Agents support the 6-day sprint philosophy
+### 📊 Product (3 commands)
+| Command | Purpose | Example Usage |
+|---------|---------|---------------|
+| `feedback-synthesizer` | User feedback analysis | `/feedback-synthesizer reviews summary` |
+| `sprint-prioritizer` | Task prioritization | `/sprint-prioritizer backlog features` |
+| `trend-researcher` | Market research | `/trend-researcher tech ai-tools` |
 
-## 🔧 Technical Details
+### 📈 Marketing (8 commands)
+| Command | Purpose | Example Usage |
+|---------|---------|---------------|
+| `app-store-optimizer` | ASO optimization | `/app-store-optimizer keywords productivity` |
+| `content-creator` | Content generation | `/content-creator blog ai-trends` |
+| `growth-hacker` | Growth experiments | `/growth-hacker viral email` |
+| `instagram-curator` | Visual content | `/instagram-curator tech-posts feed` |
+| `nexo-social-strategist` | Social strategy | `/nexo-social-strategist campaign launch` |
+| `reddit-community-builder` | Community growth | `/reddit-community-builder programming post` |
+| `tiktok-strategist` | Short-form video | `/tiktok-strategist tech-tips series` |
+| `twitter-engager` | Tweet optimization | `/twitter-engager thread ai-trends` |
 
-### Agent Structure
-Each agent includes:
-- **name**: Unique identifier
-- **description**: When to use the agent with examples
-- **color**: Visual identification
-- **tools**: Specific tools the agent can access
-- **System prompt**: Detailed expertise and instructions
+### 🎨 Design (5 commands)
+| Command | Purpose | Example Usage |
+|---------|---------|---------------|
+| `brand-guardian` | Brand consistency | `/brand-guardian logo-usage check` |
+| `ui-designer` | Interface design | `/ui-designer button primary react` |
+| `ux-researcher` | User experience | `/ux-researcher usability mobile` |
+| `visual-storyteller` | Visual narrative | `/visual-storyteller infographic data` |
+| `whimsy-injector` | Delightful UX | `/whimsy-injector animation hover` |
 
-### Adding New Agents
-1. Create a new `.md` file in the appropriate department folder
-2. Follow the existing format with YAML frontmatter
-3. Include 3-4 detailed usage examples
-4. Write comprehensive system prompt (500+ words)
-5. Test the agent with real tasks
+### 📋 Project Management (3 commands)
+| Command | Purpose | Example Usage |
+|---------|---------|---------------|
+| `experiment-tracker` | A/B test management | `/experiment-tracker feature-flag setup` |
+| `project-shipper` | Release coordination | `/project-shipper deploy checklist` |
+| `studio-producer` | Team coordination | `/studio-producer sprint-planning` |
 
-## 📊 Agent Performance
+### 🏢 Studio Operations (5 commands)
+| Command | Purpose | Example Usage |
+|---------|---------|---------------|
+| `analytics-reporter` | Data insights | `/analytics-reporter metrics dashboard` |
+| `finance-tracker` | Budget analysis | `/finance-tracker costs cloud` |
+| `infrastructure-maintainer` | Infrastructure ops | `/infrastructure-maintainer scaling aws` |
+| `legal-compliance-checker` | Compliance review | `/legal-compliance-checker gdpr audit` |
+| `support-responder` | Customer support | `/support-responder ticket-analysis` |
 
-Track agent effectiveness through:
-- Task completion time
-- User satisfaction
-- Error rates
-- Feature adoption
-- Development velocity
+### 🧪 Testing (6 commands)
+| Command | Purpose | Example Usage |
+|---------|---------|---------------|
+| `api-tester` | API validation | `/api-tester endpoints auth` |
+| `nexo-test-engineer` | Test strategy | `/nexo-test-engineer coverage report` |
+| `performance-benchmarker` | Performance testing | `/performance-benchmarker load-test api` |
+| `test-results-analyzer` | Test analysis | `/test-results-analyzer failures pattern` |
+| `tool-evaluator` | Tool assessment | `/tool-evaluator testing-framework` |
+| `workflow-optimizer` | Process improvement | `/workflow-optimizer ci-pipeline` |
 
-## 🚦 Status
+### 🎭 Bonus (3 commands)
+| Command | Purpose | Example Usage |
+|---------|---------|---------------|
+| `joker` | Tech humor | `/joker code-review funny` |
+| `nexo-coach` | AI guidance | `/nexo-coach workflow optimization` |
+| `studio-coach` | Team development | `/studio-coach retro facilitation` |
 
-- ✅ **Active**: Fully functional and tested
-- 🚧 **Coming Soon**: In development
-- 🧪 **Beta**: Testing with limited functionality
+## 💡 Real-World Usage Examples
 
-## 🛠️ Customizing Agents for Your Studio
+> **Note**: The following commands are executed inside the Google AI CLI TUI interface (after running `gemini` in your terminal).
 
-### Agent Customization Todo List
+### Security Audit Workflow
+```bash
+/security-analyst deps          # Scan dependencies
+/security-analyst code          # Static analysis  
+/security-analyst secrets       # Credential check
+/code-reviewer security         # Review security patterns
+```
 
-Use this checklist when creating or modifying agents for your specific needs:
+### Feature Development Pipeline
+```bash
+/backend-architect api user-profile    # Design API
+/frontend-developer component profile  # Build UI
+/test-writer-fixer integration api     # Create tests
+/code-reviewer diff HEAD~3             # Review changes
+```
 
-#### 📋 Required Components
-- [ ] **YAML Frontmatter**
-  - [ ] `name`: Unique agent identifier (kebab-case)
-  - [ ] `description`: When to use + 3-4 detailed examples with context/commentary
-  - [ ] `color`: Visual identification (e.g., blue, green, purple, indigo)
-  - [ ] `tools`: Specific tools the agent can access (Write, Read, MultiEdit, Bash, etc.)
+### Growth Experiment Setup
+```bash
+/trend-researcher social ai-tools      # Market research
+/growth-hacker viral email 2-weeks     # Design experiment
+/content-creator email-sequence launch # Content creation
+/analytics-reporter conversion funnel  # Setup tracking
+```
 
-#### 📝 System Prompt Requirements (500+ words)
-- [ ] **Agent Identity**: Clear role definition and expertise area
-- [ ] **Core Responsibilities**: 5-8 specific primary duties
-- [ ] **Domain Expertise**: Technical skills and knowledge areas
-- [ ] **Studio Integration**: How agent fits into 6-day sprint workflow
-- [ ] **Best Practices**: Specific methodologies and approaches
-- [ ] **Constraints**: What the agent should/shouldn't do
-- [ ] **Success Metrics**: How to measure agent effectiveness
+## 🔄 Workflows & Composition
 
-#### 🎯 Required Examples by Agent Type
+> **Note**: Command composition using `&&` is executed within the Google AI CLI TUI interface.
 
-**Engineering Agents** need examples for:
-- [ ] Feature implementation requests
-- [ ] Bug fixing scenarios
-- [ ] Code refactoring tasks
-- [ ] Architecture decisions
+Commands are designed for composition in development workflows:
 
-**Design Agents** need examples for:
-- [ ] New UI component creation
-- [ ] Design system work
-- [ ] User experience problems
-- [ ] Visual identity tasks
+```bash
+# Code quality pipeline (executed in TUI)
+/code-reviewer file src/ && /security-analyst code && /test-writer-fixer coverage
 
-**Marketing Agents** need examples for:
-- [ ] Campaign creation requests
-- [ ] Platform-specific content needs
-- [ ] Growth opportunity identification
-- [ ] Brand positioning tasks
+# Product launch sequence (executed in TUI)
+/trend-researcher market-analysis && /feedback-synthesizer user-interviews && /sprint-prioritizer launch-features
 
-**Product Agents** need examples for:
-- [ ] Feature prioritization decisions
-- [ ] User feedback analysis
-- [ ] Market research requests
-- [ ] Strategic planning needs
+# Infrastructure deployment (executed in TUI)
+/devops-automator ci-setup && /sre monitoring && /security-analyst iac
+```
 
-**Operations Agents** need examples for:
-- [ ] Process optimization
-- [ ] Tool evaluation
-- [ ] Resource management
-- [ ] Performance analysis
+## 🛠️ Custom Command Development
 
-#### ✅ Testing & Validation Checklist
-- [ ] **Trigger Testing**: Agent activates correctly for intended use cases
-- [ ] **Tool Access**: Agent can use all specified tools properly
-- [ ] **Output Quality**: Responses are helpful and actionable
-- [ ] **Edge Cases**: Agent handles unexpected or complex scenarios
-- [ ] **Integration**: Works well with other agents in multi-agent workflows
-- [ ] **Performance**: Completes tasks within reasonable timeframes
-- [ ] **Documentation**: Examples accurately reflect real usage patterns
+Use our optimized templates:
 
-#### 🔧 Agent File Structure Template
+- **`templates/COMMAND_TEMPLATE.toml`** - Simple commands
+- **`templates/COMMAND_TEMPLATE_ADVANCED.toml`** - Complex workflows
 
-```markdown
+Key principles:
+1. **Use `{{args}}`** for dynamic input
+2. **Include `!{shell commands}`** for context
+3. **Structure output** for automation
+4. **Keep prompts focused** on specific tasks
+
+## 📈 Performance & Optimization
+
+### Context Efficiency
+- **Smart file discovery** limits results (`| head -5`)
+- **Conditional commands** prevent errors (`2>/dev/null`)
+- **Focused queries** improve response speed
+
+### Token Optimization
+- **50-70% token reduction** vs. original commands
+- **Focused prompts** eliminate unnecessary context
+- **Structured output** improves parsing efficiency
+
+## 🚦 Migration from v1.x
+
+If you're upgrading from the previous version:
+
+1. **All commands now use `{{args}}`** instead of manual parsing
+2. **Shell integration** provides automatic context
+3. **Simplified descriptions** for better `/help` output
+4. **Structured output** replaces free-form responses
+
+See `PROJECT_STATUS.md` for current development status and quality metrics.
+
+## 📚 Additional Resources
+
+- **`LEGAL_COMPLIANCE.md`** - Legal guidelines and trademark compliance
+- **`PROJECT_STATUS.md`** - Current development status and quality metrics
+- **`docs/TERMINAL_VS_TUI_GUIDE.md`** - Complete usage guide for both CLI modes
+- **`templates/`** - Command templates for creating new commands
+- **`VALIDATION_GUIDE.md`** - Testing and validation procedures
+- [Google AI CLI Documentation](https://github.com/google-gemini/gemini-cli) - Official docs
+
+## 📁 Repository Structure
+
+```
+nexo-agents/
+├── README.md                    # Main documentation
+├── LEGAL_COMPLIANCE.md          # Legal guidelines & compliance
+├── PROJECT_STATUS.md            # Development status & quality metrics
+├── VALIDATION_GUIDE.md          # Testing and validation procedures
+├── commands/                    # All command files (public)
+│   ├── engineering/             # Development and engineering commands
+│   ├── design/                  # Design and UX commands
+│   ├── marketing/               # Marketing and growth commands
+│   ├── product/                 # Product management commands
+│   ├── testing/                 # Testing and QA commands
+│   ├── project-management/      # Project coordination commands
+│   ├── studio-operations/       # Business operations commands
+│   └── bonus/                   # Fun and utility commands
+├── docs/                        # Additional documentation
+│   └── TERMINAL_VS_TUI_GUIDE.md # Detailed usage guide
+├── templates/                   # Command templates (public)
+│   ├── COMMAND_TEMPLATE.toml
+│   └── COMMAND_TEMPLATE_ADVANCED.toml
+└── private/                     # Development files (excluded from git)
+    ├── migration_scripts/
+    ├── backups/
+    └── logs/
+```
+
 ---
-name: your-agent-name
-description: Use this agent when [scenario]. This agent specializes in [expertise]. Examples:\n\n<example>\nContext: [situation]\nuser: "[user request]"\nassistant: "[response approach]"\n<commentary>\n[why this example matters]\n</commentary>\n</example>\n\n[3 more examples...]
-color: agent-color
-tools: Tool1, Tool2, Tool3
----
 
-You are a [role] who [primary function]. Your expertise spans [domains]. You understand that in 6-day sprints, [sprint constraint], so you [approach].
-
-Your primary responsibilities:
-1. [Responsibility 1]
-2. [Responsibility 2]
-...
-
-[Detailed system prompt content...]
-
-Your goal is to [ultimate objective]. You [key behavior traits]. Remember: [key philosophy for 6-day sprints].
-```
-
-#### 📂 Department-Specific Guidelines
-
-**Engineering** (`engineering/`): Focus on implementation speed, code quality, testing
-**Design** (`design/`): Emphasize user experience, visual consistency, rapid iteration  
-**Marketing** (`marketing/`): Target viral potential, platform expertise, growth metrics
-**Product** (`product/`): Prioritize user value, data-driven decisions, market fit
-**Operations** (`studio-operations/`): Optimize processes, reduce friction, scale systems
-**Testing** (`testing/`): Ensure quality, find bottlenecks, validate performance
-**Project Management** (`project-management/`): Coordinate teams, ship on time, manage scope
-
-#### 🎨 Customizations
-
-Modify these elements for your needs:
-- [ ] Adjust examples to reflect your product types
-- [ ] Add specific tools agents have access to
-- [ ] Modify success metrics for your KPIs
-- [ ] Update department structure if needed
-- [ ] Customize agent colors for your brand
-
-## 🤝 Contributing
-
-To improve existing agents or suggest new ones:
-1. Use the customization checklist above
-2. Test thoroughly with real projects
-3. Document performance improvements
-4. Share successful patterns with the community
+**Version**: 2.0 (Google AI CLI Optimized)  
+**Commands**: 44 production-ready agents  
+**Compatibility**: Google AI CLI (`gemini-cli`) 2025+ with official TOML format  
+**License**: MIT

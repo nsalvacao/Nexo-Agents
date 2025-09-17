@@ -1,240 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexo-Agents for Google AI CLI</title>
+    
+    <!-- Open Graph Metadata for Social Sharing (LinkedIn, etc.) -->
+    <meta property="og:title" content="Nexo-Agents for Google AI CLI">
+    <meta property="og:description" content="A collection of 44 independent AI commands, designed to enhance your experience with the Google AI CLI (gemini-cli). Each command is optimized for performance, context awareness, and structured output.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/nsalvacao/Nexo-Agents/main/assets/nexo-agents-social-preview.png">
+    <meta property="og:url" content="https://nsalvacao.github.io/Nexo-Agents/">
+    
+    <!-- Favicon SVG -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #121212;
-            --surface-color: #1e1e1e;
-            --primary-color: #0d6efd;
-            --primary-hover-color: #0a58ca;
-            --text-color: #e0e0e0;
-            --text-muted-color: #a0a0a0;
-            --border-color: #333;
-            --code-bg-color: #282c34;
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Roboto Mono', 'monospace'],
+                    },
+                    colors: {
+                        'brand-dark': '#0f172a',
+                        'brand-surface': '#1e293b',
+                        'brand-primary': '#3b82f6',
+                        'brand-primary-hover': '#2563eb',
+                        'brand-text': '#f1f5f9',
+                        'brand-text-muted': '#aab7c6',
+                        'brand-border': '#334155',
+                        'brand-code': '#020617',
+                    }
+                }
+            }
         }
-
+    </script>
+    <style>
+        /* Smooth scroll bar style */
         html {
             scroll-behavior: smooth;
         }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Inter', sans-serif;
+        /* Scroll bar styling (optional, but improves aesthetics) */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-
-        .navbar {
-            background-color: rgba(30, 30, 30, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
         }
-
-        .hero {
-            padding: 6rem 0;
-            background-color: var(--bg-color);
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
         }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
         }
-        
-        .hero .lead {
-            font-size: 1.25rem;
-            color: var(--text-muted-color);
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .btn {
-            transition: all 0.2s ease-in-out;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            font-weight: 500;
-            padding: 0.75rem 1.5rem;
-            font-size: 1.1rem;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-hover-color);
-            border-color: var(--primary-hover-color);
-            transform: translateY(-2px);
-        }
-        
-        .btn-outline-light {
-            padding: 0.75rem 1.5rem;
-            font-size: 1.1rem;
-        }
-
-        .section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            font-weight: 700;
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-
-        .agent-filters .btn {
-            margin: 0.25rem;
-        }
-
-        .agent-card {
-            background-color: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .agent-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-        }
-
-        .agent-card .category {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .agent-card .agent-name {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-top: 0.5rem;
-            color: var(--text-color);
-        }
-
-        .agent-card .agent-description {
-            font-size: 0.9rem;
-            color: var(--text-muted-color);
-            margin-top: 0.75rem;
-            flex-grow: 1;
-        }
-
-        .code-block-wrapper {
-            position: relative;
-        }
-
-        pre {
-            background-color: var(--code-bg-color);
-            color: #abb2bf;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            border: 1px solid var(--border-color);
-            font-family: 'Roboto Mono', monospace;
-        }
-
-        .copy-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background-color: #444;
-            color: #fff;
-            border: none;
-            padding: 0.3rem 0.6rem;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-
-        .copy-btn:hover {
-            opacity: 1;
-        }
-        
-        .footer {
-            background-color: var(--surface-color);
-            padding: 3rem 0;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-muted-color);
-        }
-        
-        .footer a {
-            color: var(--text-muted-color);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        
-        .footer a:hover {
-            color: var(--text-color);
-        }
-
-        .social-links a {
-            font-size: 1.5rem;
-            margin: 0 0.5rem;
-        }
-
     </style>
 </head>
-<body>
+<body class="bg-brand-dark text-brand-text font-sans antialiased">
 
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#"><i class="bi bi-robot"></i> Nexo-Agents</a>
-            <a href="https://github.com/nsalvacao/Nexo-Agents" target="_blank" class="btn btn-outline-light"><i class="bi bi-github"></i> View on GitHub</a>
+    <!-- Navbar -->
+    <nav class="bg-brand-dark/70 backdrop-blur-lg sticky top-0 z-50 border-b border-brand-border">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a class="text-xl font-bold flex items-center gap-2" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 16.5 8 18.5l-2.5-4"/><path d="m14 16.5 2 2 2.5-4"/><path d="M7.5 4.21 9 5.46"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="M3.27 6.96 12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></svg>
+                    <span>Nexo-Agents</span>
+                </a>
+                <a href="https://github.com/nsalvacao/Nexo-Agents" target="_blank" rel="noopener noreferrer" class="bg-slate-700 hover:bg-slate-600 text-white font-medium py-2 px-4 rounded-lg flex items-center gap-2 transition-colors duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/></svg>
+                    <span>View on GitHub</span>
+                </a>
+            </div>
         </div>
     </nav>
 
-    <header class="hero text-center">
-        <div class="container">
-            <h1 class="display-4">Supercharge Your Google AI CLI</h1>
-            <p class="lead">
-                A comprehensive collection of 44 specialized AI commands designed for seamless integration with Google's AI CLI. Each command is optimized for performance, context-awareness, and structured output.
+    <!-- Hero Section -->
+    <header class="py-20 md:py-28 text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4">Empower Your Google AI CLI</h1>
+            <p class="text-lg md:text-xl text-brand-text-muted max-w-3xl mx-auto">
+                A collection of 44 independent AI commands, designed to enhance your experience with the Google AI CLI (gemini-cli). Each command is optimized for performance, context awareness, and structured output.
             </p>
-            <a href="#agents" class="btn btn-primary btn-lg mt-3">Explore Agents</a>
+            <a href="#agents" class="bg-brand-primary hover:bg-brand-primary-hover text-white font-bold py-3 px-8 rounded-full text-lg mt-8 inline-block transition-transform duration-200 hover:scale-105">Explore Agents</a>
         </div>
     </header>
 
-    <section id="agents" class="section">
-        <div class="container">
-            <h2 class="section-title">Meet the Agents</h2>
-            <div id="agent-filters" class="text-center mb-5">
+    <!-- Legal Disclaimer -->
+    <div class="container mx-auto px-4 text-center text-sm text-brand-text-muted mb-8 -mt-16 md:-mt-24">
+        <p>Disclaimer: This is a third-party project and is not affiliated with, sponsored by, or endorsed by Google LLC. "Gemini" is a trademark of Google LLC.</p>
+    </div>
+
+    <!-- Agents Section -->
+    <section id="agentes" class="py-20 bg-brand-surface">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Meet the Agents</h2>
+            <div id="agent-filters" class="flex flex-wrap justify-center gap-2 md:gap-3 mb-10">
                 <!-- Filter buttons will be injected here -->
             </div>
-            <div id="agent-grid" class="row g-4">
+            <div id="agent-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <!-- Agent cards will be injected here -->
             </div>
         </div>
     </section>
 
-    <section id="how-it-works" class="section bg-dark">
-        <div class="container">
-            <h2 class="section-title">How It Works</h2>
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h3>Context-Aware Intelligence</h3>
-                    <p class="text-muted">Every command automatically analyzes your project environment by running shell commands to gather context about code files, dependencies, and recent changes.</p>
-                    <h3>Official Google AI CLI Compliance</h3>
-                    <p class="text-muted">Commands use native `{{args}}` parsing for dynamic arguments and `!{command}` for shell integration, following the official specifications for robust and reliable execution.</p>
+    <!-- How It Works Section -->
+    <section id="como-funciona" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">How It Works</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">Context-Aware Intelligence</h3>
+                        <p class="text-brand-text-muted">Each command automatically analyzes your project environment, executing shell commands to gather context about code files, dependencies, and recent changes.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">Built Specifically for the Google AI CLI</h3>
+                        <p class="text-brand-text-muted">These commands were designed from the ground up to utilize the native `{{args}}` syntax for dynamic arguments and `!{command}` for shell integration, following official specifications for robust and reliable execution.</p>
+                    </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="code-block-wrapper">
-                        <pre><code>description = "Brief description for /help menu"
+                <div class="relative">
+                    <pre class="bg-brand-code text-sm rounded-xl p-6 overflow-x-auto font-mono border border-brand-border"><code class="language-toml">description = "Short description for the /help menu"
 
 prompt = """
-You are a [role] specializing in [domain].
+You are a specialized [role] in [domain].
 
 Task: {{args}}
 
@@ -246,119 +141,167 @@ Dependencies: !{cat package.json 2>/dev/null}
 - Capability 1 with clear parameters
 - Capability 2 with usage examples
 
-[Implementation guidance]
+[Implementation guide]
 """</code></pre>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="quick-start" class="section">
-        <div class="container">
-            <h2 class="section-title">Quick Start</h2>
-            <div class="row text-center g-4">
-                <div class="col-md-6">
-                    <h4>Native Discovery (Recommended)</h4>
-                    <p class="text-muted">Copy commands to your Google AI CLI directory for automatic discovery and use them directly inside the TUI.</p>
-                    <div class="code-block-wrapper">
-                        <pre class="text-start"><code># Global installation
+    <!-- Quick Start Section -->
+    <section id="inicio-rapido" class="py-20 bg-brand-surface">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Quick Start</h2>
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-brand-dark p-6 rounded-xl border border-brand-border">
+                    <h4 class="text-xl font-bold text-center mb-3">Native Discovery (Recommended)</h4>
+                    <p class="text-brand-text-muted text-center mb-4">Copy the TOML files to your Google AI CLI commands directory. The CLI will automatically discover them, allowing you to use them directly inside the TUI (Terminal User Interface).</p>
+                    <div class="relative">
+                        <pre class="bg-brand-code text-sm rounded-lg p-4 font-mono overflow-x-auto"><code class="language-shell"># Global installation
 cp commands/engineering/security-analyst.toml ~/.gemini/commands/
 
-# Inside Gemini TUI
+# Inside the Gemini TUI
 /security-analyst deps scan</code></pre>
+                        <button class="copy-btn absolute top-2 right-2 p-2 bg-slate-700/50 hover:bg-slate-600/70 rounded-md transition-colors" aria-label="Copy code">
+                            <svg class="pointer-events-none" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                        </button>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <h4>On-Demand Loading</h4>
-                    <p class="text-muted">Load any command temporarily for a single execution without needing to install it.</p>
-                    <div class="code-block-wrapper">
-                        <pre class="text-start"><code># Terminal command
+                <div class="bg-brand-dark p-6 rounded-xl border border-brand-border">
+                    <h4 class="text-xl font-bold text-center mb-3">On-Demand Loading</h4>
+                    <p class="text-brand-text-muted text-center mb-4">Temporarily load any command for a single execution, with no need to install it.</p>
+                     <div class="relative">
+                        <pre class="bg-brand-code text-sm rounded-lg p-4 font-mono overflow-x-auto"><code class="language-shell"># Command in the terminal
 gemini --include commands/eng/ai-engineer.toml "/ai-engineer llm openai"</code></pre>
+                        <button class="copy-btn absolute top-2 right-2 p-2 bg-slate-700/50 hover:bg-slate-600/70 rounded-md transition-colors" aria-label="Copy code">
+                             <svg class="pointer-events-none" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="container text-center">
-            <div class="social-links mb-3">
-                <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fnsalvacao%2FNexo-Agents&text=Check%20out%20Nexo-Agents%20for%20Google%20AI%20CLI%21" target="_blank" title="Share on Twitter/X"><i class="bi bi-twitter-x"></i></a>
-                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fgithub.com%2Fnsalvacao%2FNexo-Agents" target="_blank" title="Share on LinkedIn"><i class="bi bi-linkedin"></i></a>
+    <!-- Footer -->
+    <footer class="py-12">
+        <div class="container mx-auto px-4 text-center text-brand-text-muted">
+            <div class="flex justify-center gap-6 mb-6">
+                <!-- Twitter/X -->
+                <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fnsalvacao%2FNexo-Agents&text=Check%20out%20Nexo-Agents%20for%20Google%20AI%20CLI%21" target="_blank" rel="noopener noreferrer" class="hover:text-brand-text transition-colors" aria-label="Share on Twitter/X">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </a>
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fnsalvacao.github.io%2FNexo-Agents%2F" target="_blank" rel="noopener noreferrer" class="hover:text-brand-text transition-colors" aria-label="Share on LinkedIn">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                </a>
             </div>
-            <p>&copy; 2025 Nexo-Agents. This is an independent project and is not affiliated with Google LLC.</p>
-            <p>
-                <a href="https://github.com/nsalvacao/Nexo-Agents/blob/main/LICENSE" target="_blank">License</a> &middot;
-                <a href="https://github.com/nsalvacao/Nexo-Agents/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a> &middot;
-                <a href="https://github.com/nsalvacao/Nexo-Agents/blob/main/LEGAL_COMPLIANCE.md" target="_blank">Legal</a>
-            </p>
+            <p class="mb-2">&copy; <span id="current-year"></span> Nuno Salvação. All rights reserved.</p>
+            <div class="flex justify-center gap-4 text-sm">
+                <a href="https://github.com/nsalvacao/Nexo-Agents/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="hover:text-brand-text transition-colors">License</a>
+                <span>&middot;</span>
+                <a href="https://github.com/nsalvacao/Nexo-Agents/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer" class="hover:text-brand-text transition-colors">How to Contribute</a>
+                <span>&middot;</span>
+                <a href="https://github.com/nsalvacao/Nexo-Agents/blob/main/LEGAL_COMPLIANCE.md" target="_blank" rel="noopener noreferrer" class="hover:text-brand-text transition-colors">Legal</a>
+            </div>
         </div>
     </footer>
 
     <script>
         const agents = [
-            { name: 'joker', category: 'bonus', description: 'the joker' },
-            { name: 'nexo-coach', category: 'bonus', description: 'studio coach' },
-            { name: 'studio-coach', category: 'bonus', description: 'studio coach' },
-            { name: 'brand-guardian', category: 'design', description: 'brand guardian' },
-            { name: 'ui-designer', category: 'design', description: 'Generate UI components and layouts for specified framework and design system' },
-            { name: 'ux-researcher', category: 'design', description: 'ux researcher' },
-            { name: 'visual-storyteller', category: 'design', description: 'visual storyteller' },
-            { name: 'whimsy-injector', category: 'design', description: 'whimsy injector' },
-            { name: 'ai-engineer', category: 'engineering', description: 'Implement AI/ML features with specified model type and integration approach' },
-            { name: 'backend-architect', category: 'engineering', description: 'Design APIs, database schemas, and scalable backend architectures' },
-            { name: 'code-reviewer', category: 'engineering', description: 'Review code for quality, readability, and maintainability standards' },
-            { name: 'data-engineer', category: 'engineering', description: 'senior data engineer' },
-            { name: 'devops-automator', category: 'engineering', description: 'devops automation expert' },
-            { name: 'frontend-developer', category: 'engineering', description: 'elite frontend developer' },
-            { name: 'mobile-app-builder', category: 'engineering', description: 'expert mobile application developer' },
-            { name: 'rapid-prototyper', category: 'engineering', description: 'elite rapid prototyper' },
-            { name: 'security-analyst', category: 'engineering', description: 'Analyze code, dependencies, and infrastructure for security vulnerabilities' },
-            { name: 'sre', category: 'engineering', description: 'site reliability engineer' },
-            { name: 'test-writer-fixer', category: 'engineering', description: 'elite test automation expert' },
-            { name: 'app-store-optimizer', category: 'marketing', description: 'app store optimization specialist' },
-            { name: 'content-creator', category: 'marketing', description: 'versatile content creator' },
-            { name: 'growth-hacker', category: 'marketing', description: 'Cria experiências de growth para canais específicos com design e métricas' },
-            { name: 'instagram-curator', category: 'marketing', description: 'instagram curator' },
-            { name: 'nexo-social-strategist', category: 'marketing', description: 'social media strategist' },
-            { name: 'reddit-community-builder', category: 'marketing', description: 'reddit community builder' },
-            { name: 'tiktok-strategist', category: 'marketing', description: 'tiktok strategist' },
-            { name: 'twitter-engager', category: 'marketing', description: 'twitter engager' },
-            { name: 'feedback-synthesizer', category: 'product', description: 'Analisa feedback multi-source e sintetiza insights acionáveis para produto' },
-            { name: 'sprint-prioritizer', category: 'product', description: 'agile sprint prioritizer' },
-            { name: 'trend-researcher', category: 'product', description: 'market trend researcher' },
-            { name: 'experiment-tracker', category: 'project-management', description: 'experiment tracker' },
-            { name: 'project-shipper', category: 'project-management', description: 'project shipper / launch coordinator' },
-            { name: 'studio-producer', category: 'project-management', description: 'studio producer' },
-            { name: 'analytics-reporter', category: 'studio-operations', description: 'analytics reporter' },
-            { name: 'finance-tracker', category: 'studio-operations', description: 'finance tracker' },
-            { name: 'infrastructure-maintainer', category: 'studio-operations', description: 'infrastructure maintainer' },
-            { name: 'legal-compliance-checker', category: 'studio-operations', description: 'legal' },
-            { name: 'support-responder', category: 'studio-operations', description: 'empathetic support responder' },
-            { name: 'api-tester', category: 'testing', description: 'api tester' },
-            { name: 'nexo-test-engineer', category: 'testing', description: 'elite test automation expert' },
-            { name: 'performance-benchmarker', category: 'testing', description: 'performance benchmarker' },
-            { name: 'test-results-analyzer', category: 'testing', description: 'test results analyzer' },
-            { name: 'tool-evaluator', category: 'testing', description: 'tool evaluator' },
-            { name: 'workflow-optimizer', category: 'testing', description: 'workflow optimizer' }
+            { name: 'joker', category: 'bonus', description: 'An unpredictable agent for chaotic and creative tasks.' },
+            { name: 'nexo-coach', category: 'bonus', description: 'A studio coach to optimize processes and productivity.' },
+            { name: 'studio-coach', category: 'bonus', description: 'Provides guidance and feedback to improve the workflow.' },
+            { name: 'brand-guardian', category: 'design', description: 'Ensures brand consistency across all materials.' },
+            { name: 'ui-designer', category: 'design', description: 'Generates UI components and layouts for specific frameworks.' },
+            { name: 'ux-researcher', category: 'design', description: 'Conducts user research to inform design decisions.' },
+            { name: 'visual-storyteller', category: 'design', description: 'Creates impactful visual narratives to present ideas.' },
+            { name: 'whimsy-injector', category: 'design', description: 'Adds a touch of creativity and originality to designs.' },
+            { name: 'ai-engineer', category: 'engineering', description: 'Implements AI/ML functionalities with specific models.' },
+            { name: 'backend-architect', category: 'engineering', description: 'Designs APIs, database schemas, and scalable architectures.' },
+            { name: 'code-reviewer', category: 'engineering', description: 'Reviews code to ensure quality, readability, and maintainability.' },
+            { name: 'data-engineer', category: 'engineering', description: 'Builds and maintains robust and efficient data pipelines.' },
+            { name: 'devops-automator', category: 'engineering', description: 'Automates CI/CD processes and infrastructure as code.' },
+            { name: 'frontend-developer', category: 'engineering', description: 'Develops interactive and responsive user interfaces.' },
+            { name: 'mobile-app-builder', category: 'engineering', description: 'Creates high-performance native or hybrid mobile apps.' },
+            { name: 'rapid-prototyper', category: 'engineering', description: 'Quickly develops functional prototypes to validate ideas.' },
+            { name: 'security-analyst', category: 'engineering', description: 'Analyzes code and infrastructure for vulnerabilities.' },
+            { name: 'sre', category: 'engineering', description: 'Site reliability engineer to ensure system stability.' },
+            { name: 'test-writer-fixer', category: 'engineering', description: 'Writes and fixes automated tests to ensure quality.' },
+            { name: 'app-store-optimizer', category: 'marketing', description: 'Optimizes app presence in app stores (ASO).' },
+            { name: 'content-creator', category: 'marketing', description: 'Creates versatile and engaging content for different channels.' },
+            { name: 'growth-hacker', category: 'marketing', description: 'Creates growth experiences for specific channels with design and metrics.' },
+            { name: 'instagram-curator', category: 'marketing', description: 'Manages and creates visually appealing content for Instagram.' },
+            { name: 'nexo-social-strategist', category: 'marketing', description: 'Defines and executes social media strategies aligned with the brand.' },
+            { name: 'reddit-community-builder', category: 'marketing', description: 'Builds and manages active communities on the Reddit platform.' },
+            { name: 'tiktok-strategist', category: 'marketing', description: 'Creates and implements content strategies for TikTok.' },
+            { name: 'twitter-engager', category: 'marketing', description: 'Generates interaction and relevant conversations on Twitter/X.' },
+            { name: 'feedback-synthesizer', category: 'product', description: 'Analyzes feedback from multiple sources and synthesizes actionable insights.' },
+            { name: 'sprint-prioritizer', category: 'product', description: 'Helps prioritize tasks and functionalities for agile sprints.' },
+            { name: 'trend-researcher', category: 'product', description: 'Researches and analyzes market trends to inform the product.' },
+            { name: 'experiment-tracker', category: 'project-management', description: 'Tracks and documents the results of experiments and A/B tests.' },
+            { name: 'project-shipper', category: 'project-management', description: 'Coordinates project launches, ensuring everything runs smoothly.' },
+            { name: 'studio-producer', category: 'project-management', description: 'Manages the production workflow of a creative or development studio.' },
+            { name: 'analytics-reporter', category: 'operations', description: 'Creates reports and dashboards based on analytics data.' },
+            { name: 'finance-tracker', category: 'operations', description: 'Monitors and reports on a project or studio\'s finances.' },
+            { name: 'infrastructure-maintainer', category: 'operations', description: 'Maintains IT infrastructure and operating systems.' },
+            { name: 'legal-compliance-checker', category: 'operations', description: 'Checks the legal compliance of products and processes.' },
+            { name: 'support-responder', category: 'operations', description: 'Provides empathetic and effective customer support responses.' },
+            { name: 'api-tester', category: 'testing', description: 'Tests APIs to ensure functionality, performance, and security.' },
+            { name: 'nexo-test-engineer', category: 'testing', description: 'Elite test automation engineer for complex software.' },
+            { name: 'performance-benchmarker', category: 'testing', description: 'Measures and analyzes system performance under load.' },
+            { name: 'test-results-analyzer', category: 'testing', description: 'Analyzes test results to identify patterns and bugs.' },
+            { name: 'tool-evaluator', category: 'testing', description: 'Evaluates and recommends tools to optimize the testing process.' },
+            { name: 'workflow-optimizer', category: 'testing', description: 'Optimizes the testing team\'s workflows for greater efficiency.' }
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
             const filtersContainer = document.getElementById('agent-filters');
             const gridContainer = document.getElementById('agent-grid');
+            const yearSpan = document.getElementById('current-year');
 
-            const categories = ['all', ...new Set(agents.map(agent => agent.category))];
+            // Update the year in the footer
+            if(yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+
+            // Map categories to their display names in English
+            const categoryDisplayNames = {
+                'all': 'All',
+                'bonus': 'Bonus',
+                'design': 'Design',
+                'engineering': 'Engineering',
+                'marketing': 'Marketing',
+                'product': 'Product',
+                'project-management': 'Project Management',
+                'operations': 'Operations',
+                'testing': 'Testing'
+            };
+
+            // SVG icons for each category
+            const categoryIcons = {
+                'all': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4m-4 4-4-4m4 4V3m-8 9c1.1 2.2 2.8 4 5 5.2 2.2 1.2 4.9 1.9 7.6 1.8 1.1-.1 2.1-.5 3-.9m-11-13c-1.1-2.2-2.8-4-5-5.2C5.8 2.2 3.1 1.5.4 1.6c-.1.1-.3.2-.4.4"/></svg>`,
+                'bonus': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2c2.8 0 5-2.2 5-5V9a2 2 0 0 0-2-2m-3-4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1Z"/><path d="M16 14v1a2 2 0 0 0 2 2c2.8 0 5-2.2 5-5V9a2 2 0 0 0-2-2M8 14v1a2 2 0 0 1-2 2c-2.8 0-5-2.2-5-5V9a2 2 0 0 1 2-2"/></svg>`,
+                'design': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M12 12c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4"/></svg>`,
+                'engineering': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
+                'marketing': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13.5V11a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2.5a2.5 2.5 0 0 0 5 0V11a2.5 2.5 0 0 1 5 0v2.5"/><path d="M12 2v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2z"/></svg>`,
+                'product': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
+                'project-management': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 13h-4v-1.5a2.5 2.5 0 0 0-5 0V13H8v-1.5a2.5 2.5 0 0 0-5 0V13H2"/><path d="M18 19V6.5a2.5 2.5 0 0 0-5 0V19H8V6.5a2.5 2.5 0 0 0-5 0V19"/></svg>`,
+                'operations': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l-8 8V22h16V10l-8-8z"/><path d="M9 22V12h6v10"/></svg>`,
+                'testing': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8m-4 4V8"/></svg>`
+            };
+            const categories = Object.keys(categoryDisplayNames);
 
             function createFilters() {
                 categories.forEach(category => {
                     const button = document.createElement('button');
-                    button.className = 'btn btn-outline-secondary';
-                    button.textContent = category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    const baseClasses = 'px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 flex items-center gap-2';
+                    const activeClasses = 'bg-brand-primary text-white';
+                    const inactiveClasses = 'bg-brand-surface hover:bg-brand-border text-brand-text-muted';
+                    
+                    button.className = `${baseClasses} ${category === 'all' ? activeClasses : inactiveClasses}`;
+                    button.innerHTML = `${categoryIcons[category] || ''} <span>${categoryDisplayNames[category]}</span>`;
                     button.dataset.filter = category;
-                    if (category === 'all') {
-                        button.classList.add('active');
-                    }
+                    
                     button.addEventListener('click', handleFilterClick);
                     filtersContainer.appendChild(button);
                 });
@@ -367,45 +310,60 @@ gemini --include commands/eng/ai-engineer.toml "/ai-engineer llm openai"</code><
             function renderAgents(filter = 'all') {
                 gridContainer.innerHTML = '';
                 const filteredAgents = filter === 'all' ? agents : agents.filter(agent => agent.category === filter);
-
+                
                 filteredAgents.forEach(agent => {
                     const col = document.createElement('div');
-                    col.className = 'col-lg-3 col-md-4 col-sm-6';
+                    col.className = 'bg-brand-dark border border-brand-border rounded-xl p-5 flex flex-col transform hover:-translate-y-1 transition-transform duration-200 shadow-lg hover:shadow-brand-primary/20';
                     const desc = agent.description.charAt(0).toUpperCase() + agent.description.slice(1);
+                    const engCategory = agent.category;
+
                     col.innerHTML = `
-                        <div class="agent-card">
-                            <div class="category">${agent.category.replace(/-/g, ' ')}</div>
-                            <div class="agent-name">${agent.name}</div>
-                            <div class="agent-description">${desc}</div>
-                        </div>
+                        <div class="text-xs font-bold uppercase tracking-wider text-brand-primary mb-2 flex items-center gap-1">${categoryIcons[engCategory] || ''} <span>${categoryDisplayNames[engCategory]}</span></div>
+                        <div class="font-mono text-lg font-bold text-brand-text mb-3">${agent.name}</div>
+                        <div class="text-sm text-brand-text-muted flex-grow">${desc}</div>
                     `;
                     gridContainer.appendChild(col);
                 });
             }
 
             function handleFilterClick(e) {
-                const filter = e.target.dataset.filter;
-                filtersContainer.querySelector('.active').classList.remove('active');
-                e.target.classList.add('active');
+                const button = e.currentTarget;
+                const filter = button.dataset.filter;
+                // Remove the active class from all buttons
+                filtersContainer.querySelectorAll('button').forEach(btn => {
+                    btn.classList.remove('bg-brand-primary', 'text-white');
+                    btn.classList.add('bg-brand-surface', 'hover:bg-brand-border', 'text-brand-text-muted');
+                });
+                // Add the active class to the clicked button
+                button.classList.add('bg-brand-primary', 'text-white');
+                button.classList.remove('bg-brand-surface', 'hover:bg-brand-border', 'text-brand-text-muted');
+
                 renderAgents(filter);
             }
 
             function setupCopyButtons() {
-                const wrappers = document.querySelectorAll('.code-block-wrapper');
-                wrappers.forEach(wrapper => {
-                    const code = wrapper.querySelector('pre > code');
-                    const button = document.createElement('button');
-                    button.className = 'copy-btn';
-                    button.innerHTML = '<i class="bi bi-clipboard"></i>';
-                    wrapper.appendChild(button);
+                document.querySelectorAll('.copy-btn').forEach(button => {
+                    const code = button.previousElementSibling.querySelector('code').innerText;
+                    const originalIcon = button.innerHTML;
+                    const successIcon = `<svg class="pointer-events-none text-green-400" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
 
                     button.addEventListener('click', () => {
-                        navigator.clipboard.writeText(code.innerText).then(() => {
-                            button.innerHTML = '<i class="bi bi-check-lg"></i>';
-                            setTimeout(() => {
-                                button.innerHTML = '<i class="bi bi-clipboard"></i>';
-                            }, 2000);
-                        });
+                        const textarea = document.createElement('textarea');
+                        textarea.value = code;
+                        document.body.appendChild(textarea);
+                        textarea.select();
+                        try {
+                            document.execCommand('copy');
+                            button.innerHTML = successIcon;
+                        } catch (err) {
+                            console.error('Failed to copy text: ', err);
+                            // You can add error feedback here
+                        }
+                        document.body.removeChild(textarea);
+
+                        setTimeout(() => {
+                            button.innerHTML = originalIcon;
+                        }, 2000);
                     });
                 });
             }
@@ -414,7 +372,6 @@ gemini --include commands/eng/ai-engineer.toml "/ai-engineer llm openai"</code><
             renderAgents();
             setupCopyButtons();
         });
-
     </script>
 </body>
 </html>

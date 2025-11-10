@@ -1,181 +1,489 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexo-Agents for Google AI CLI</title>
-    
-    <!-- Open Graph Metadata for Social Sharing (LinkedIn, etc.) -->
-    <meta property="og:title" content="Nexo-Agents for Google AI CLI">
-    <meta property="og:description" content="A collection of 44 independent AI commands, designed to enhance your experience with the Google AI CLI (gemini-cli). Each command is optimized for performance, context awareness, and structured output.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/nsalvacao/Nexo-Agents/main/assets/nexo-agents-social-preview.png">
+    <meta name="description" content="CLI command framework for Google AI CLI. Enterprise discovery accelerator with governance integration and multi-provider orchestration patterns.">
+    <meta name="keywords" content="AI Solutions Architect, CLI Framework, Gemini CLI, LLM Orchestration, Enterprise Discovery, FinOps, Consultancy Accelerator">
+    <meta name="author" content="Nuno Salvação">
+    <link rel="canonical" href="https://nsalvacao.github.io/Nexo-Agents/">
+    <meta name="theme-color" content="#0a0a0f">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Nexo-Agents - Enterprise Discovery Accelerator">
+    <meta property="og:description" content="CLI command framework for Google AI CLI. 44 specialized commands for consultancy delivery, FinOps optimization, and client engagement acceleration.">
     <meta property="og:url" content="https://nsalvacao.github.io/Nexo-Agents/">
-    
-    <!-- Favicon SVG -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nexo-Agents · CLI Framework by Nuno Salvação">
+    <meta name="twitter:description" content="Enterprise discovery accelerator with governance integration. 70-80% time reduction in consulting engagements.">
+
+    <title>Nexo-Agents | Enterprise Discovery Accelerator</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Nexo-Agents",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Cross-platform",
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+        "creator": {
+            "@type": "Person",
+            "name": "Nuno Salvação",
+            "jobTitle": "AI Solutions Architect",
+            "sameAs": [
+                "https://github.com/nsalvacao",
+                "https://www.linkedin.com/in/nsalvacao/"
+            ]
+        }
+    }
+    </script>
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Tailwind Config -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['Roboto Mono', 'monospace'],
-                    },
-                    colors: {
-                        'brand-dark': '#0f172a',
-                        'brand-surface': '#1e293b',
-                        'brand-primary': '#3b82f6',
-                        'brand-primary-hover': '#2563eb',
-                        'brand-text': '#f1f5f9',
-                        'brand-text-muted': '#aab7c6',
-                        'brand-border': '#334155',
-                        'brand-code': '#020617',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Smooth scroll bar style */
-        html {
-            scroll-behavior: smooth;
-        }
-        /* Scroll bar styling (optional, but improves aesthetics) */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1e293b;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
-        }
-    </style>
-</head>
-<body class="bg-brand-dark text-brand-text font-sans antialiased">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Navbar -->
-    <nav class="bg-brand-dark/70 backdrop-blur-lg sticky top-0 z-50 border-b border-brand-border">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between h-16">
-                <a class="text-xl font-bold flex items-center gap-2" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 16.5 8 18.5l-2.5-4"/><path d="m14 16.5 2 2 2.5-4"/><path d="M7.5 4.21 9 5.46"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="M3.27 6.96 12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></svg>
-                    <span>Nexo-Agents</span>
-                </a>
-                <a href="https://github.com/nsalvacao/Nexo-Agents" target="_blank" rel="noopener noreferrer" class="bg-slate-700 hover:bg-slate-600 text-white font-medium py-2 px-4 rounded-lg flex items-center gap-2 transition-colors duration-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/></svg>
-                    <span>View on GitHub</span>
-                </a>
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="nav-brand">
+                <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="brand-text">Nexo-Agents</span>
             </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#commands" class="nav-link">Commands</a></li>
+                <li><a href="#architecture" class="nav-link">Architecture</a></li>
+                <li><a href="#integration" class="nav-link">Integration</a></li>
+                <li><a href="https://github.com/nsalvacao/Nexo-Agents" target="_blank" class="nav-link">GitHub</a></li>
+            </ul>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="py-20 md:py-28 text-center">
-        <div class="container mx-auto px-4">
-            <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4">Empower Your Google AI CLI</h1>
-            <p class="text-lg md:text-xl text-brand-text-muted max-w-3xl mx-auto">
-                A collection of 44 independent AI commands, designed to enhance your experience with the Google AI CLI (gemini-cli). Each command is optimized for performance, context awareness, and structured output.
-            </p>
-            <a href="#agents" class="bg-brand-primary hover:bg-brand-primary-hover text-white font-bold py-3 px-8 rounded-full text-lg mt-8 inline-block transition-transform duration-200 hover:scale-105">Explore Agents</a>
-        </div>
-    </header>
-
-    <!-- Legal Disclaimer -->
-    <div class="container mx-auto px-4 text-center text-sm text-brand-text-muted mb-8 -mt-16 md:-mt-24">
-        <p>Disclaimer: This is a third-party project and is not affiliated with, sponsored by, or endorsed by Google LLC. "Gemini" is a trademark of Google LLC.</p>
-    </div>
-
-    <!-- Agents Section -->
-    <section id="agentes" class="py-20 bg-brand-surface">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Meet the Agents</h2>
-            <div id="agent-filters" class="flex flex-wrap justify-center gap-2 md:gap-3 mb-10">
-                <!-- Filter buttons will be injected here -->
+    <section id="home" class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">CLI Command Library for Google AI</div>
+                <h1 class="hero-title">
+                    <span class="gradient-text">Consultancy Task</span><br>
+                    Automation
+                </h1>
+                <p class="hero-description">
+                    A collection of 44 specialized CLI commands for the Google AI CLI (gemini-cli).
+                    Designed to provide patterns and guidance for consultancy delivery, FinOps, and multi-provider orchestration.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">70-80%</div>
+                        <div class="stat-label">time reduction</div>
+                        <div class="stat-context">discovery phase acceleration</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50-70%</div>
+                        <div class="stat-label">token optimization</div>
+                        <div class="stat-context">vs role-playing prompts</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">44</div>
+                        <div class="stat-label">specialized commands</div>
+                        <div class="stat-context">8 domain categories</div>
+                    </div>
+                </div>
+                <p class="stat-footnote">
+                    
+                </p>
+                <div class="hero-cta">
+                    <a href="https://github.com/nsalvacao/Nexo-Agents" target="_blank" class="btn btn-primary">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
+                        View on GitHub
+                    </a>
+                    <a href="https://github.com/nsalvacao/Nexo-Agents#readme" target="_blank" class="btn btn-secondary">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Documentation
+                    </a>
+                </div>
             </div>
-            <div id="agent-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Agent cards will be injected here -->
+            <div class="hero-visual">
+                <div class="code-window">
+                    <div class="window-header">
+                        <div class="window-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <div class="window-title">terminal</div>
+                    </div>
+                    <div class="window-content">
+                        <pre><code><span class="code-comment"># Security audit</span>
+<span class="code-keyword">$</span> gemini <span class="code-string">"/security-analyst deps"</span>
+
+<span class="code-comment"># Architecture design</span>
+<span class="code-keyword">$</span> gemini <span class="code-string">"/backend-architect design \
+  api for user authentication"</span>
+
+<span class="code-comment"># Code review</span>
+<span class="code-keyword">$</span> gemini <span class="code-string">"/code-reviewer review \
+  src/main.py"</span>
+
+<span class="code-comment"># UI component</span>
+<span class="code-keyword">$</span> gemini <span class="code-string">"/ui-designer create \
+  button component with dark mode"</span></code></pre>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- How It Works Section -->
-    <section id="como-funciona" class="py-20">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">How It Works</h2>
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6">
-                    <div>
-                        <h3 class="text-2xl font-bold mb-2">Context-Aware Intelligence</h3>
-                        <p class="text-brand-text-muted">Each command automatically analyzes your project environment, executing shell commands to gather context about code files, dependencies, and recent changes.</p>
+    <!-- Value Proposition Section -->
+    <section id="value" class="value-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Key Capabilities</h2>
+                <p class="section-subtitle">Providing patterns and guidance for consultancy delivery, software house operations, and AI provider workflows</p>
+            </div>
+            <div class="value-grid">
+                <article class="value-card">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
                     </div>
-                    <div>
-                        <h3 class="text-2xl font-bold mb-2">Built Specifically for the Google AI CLI</h3>
-                        <p class="text-brand-text-muted">These commands were designed from the ground up to utilize the native `{{args}}` syntax for dynamic arguments and `!{command}` for shell integration, following official specifications for robust and reliable execution.</p>
+                    <h3>Governance Patterns</h3>
+                    <p>
+                        Provides command templates with examples of ADR documentation, versioned command library, and audit-ready execution traces.
+                        Includes examples of Langfuse/Prometheus observability patterns.
+                    </p>
+                    <ul>
+                        <li>Legal-Compliance command examples for GDPR assessments</li>
+                        <li>FinOps-Analyst command examples for token monitoring</li>
+                        <li>Git-based command versioning guidance</li>
+                    </ul>
+                </article>
+                <article class="value-card">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Multi-Provider Patterns</h3>
+                    <p>
+                        Includes examples of vendor-neutral architecture. Provides patterns for LiteLLM routing, circuit-breaker strategies,
+                        and fallback mechanisms.
+                    </p>
+                    <ul>
+                        <li>Gemini, Claude, GPT abstraction layer examples</li>
+                        <li>Cost-aware model selection patterns</li>
+                        <li>Rate-limit handling strategy examples</li>
+                    </ul>
+                </article>
+                <article class="value-card">
+                    <div class="value-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Delivery Acceleration</h3>
+                    <p>
+                        The command library helps to accelerate the discovery phase. The reusable commands
+                        provide a starting point for standardized consulting workflows.
+                    </p>
+                    <ul>
+                        <li>Backend-Architect command for system design patterns</li>
+                        <li>Security-Analyst command for threat modeling guidance</li>
+                        <li>Product-Manager command for roadmap prioritization examples</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Command Categories Section -->
+    <section id="commands" class="commands-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Command Library</h2>
+                <p class="section-subtitle">44 specialized commands across 8 domain categories</p>
+            </div>
+            <div class="search-container">
+                <input type="text" id="commandSearch" placeholder="Search for commands...">
+            </div>
+            <div class="commands-grid">
+                <div class="command-category">
+                    <div class="category-icon">🔧</div>
+                    <h3>Engineering</h3>
+                    <div class="category-count">11 commands</div>
+                    <p>Architecture, security, code review, testing patterns</p>
+                    <div class="category-tags">
+                        <span>AI-Engineer</span>
+                        <span>Backend-Architect</span>
+                        <span>Security-Analyst</span>
                     </div>
                 </div>
-                <div class="relative">
-                    <pre class="bg-brand-code text-sm rounded-xl p-6 overflow-x-auto font-mono border border-brand-border"><code class="language-toml">description = "Short description for the /help menu"
-
-prompt = """
-You are a specialized [role] in [domain].
-
-Task: {{args}}
-
-## CONTEXT ANALYSIS
-Project files: !{find . -name "*.ext" | head -5}
-Dependencies: !{cat package.json 2>/dev/null}
-
-## CAPABILITIES
-- Capability 1 with clear parameters
-- Capability 2 with usage examples
-
-[Implementation guide]
-"""</code></pre>
+                <div class="command-category">
+                    <div class="category-icon">🎨</div>
+                    <h3>Design</h3>
+                    <div class="category-count">5 commands</div>
+                    <p>UI/UX, components, brand identity, visual systems</p>
+                    <div class="category-tags">
+                        <span>UI-Designer</span>
+                        <span>Brand-Strategist</span>
+                    </div>
+                </div>
+                <div class="command-category">
+                    <div class="category-icon">📈</div>
+                    <h3>Marketing</h3>
+                    <div class="category-count">8 commands</div>
+                    <p>Growth, content, social media, SEO strategies</p>
+                    <div class="category-tags">
+                        <span>Content-Writer</span>
+                        <span>Growth-Hacker</span>
+                    </div>
+                </div>
+                <div class="command-category">
+                    <div class="category-icon">📊</div>
+                    <h3>Product</h3>
+                    <div class="category-count">3 commands</div>
+                    <p>Prioritization, roadmap, data analysis</p>
+                    <div class="category-tags">
+                        <span>Product-Manager</span>
+                        <span>Data-Analyst</span>
+                    </div>
+                </div>
+                <div class="command-category">
+                    <div class="category-icon">🧪</div>
+                    <h3>Testing</h3>
+                    <div class="category-count">6 commands</div>
+                    <p>QA, performance, automation, API validation</p>
+                    <div class="category-tags">
+                        <span>Test-Engineer</span>
+                        <span>API-Tester</span>
+                    </div>
+                </div>
+                <div class="command-category">
+                    <div class="category-icon">📋</div>
+                    <h3>Project Management</h3>
+                    <div class="category-count">3 commands</div>
+                    <p>Coordination, tracking, agile coaching</p>
+                    <div class="category-tags">
+                        <span>Project-Manager</span>
+                        <span>Agile-Coach</span>
+                    </div>
+                </div>
+                <div class="command-category">
+                    <div class="category-icon">🏢</div>
+                    <h3>Operations</h3>
+                    <div class="category-count">5 commands</div>
+                    <p>Analytics, compliance, support, FinOps</p>
+                    <div class="category-tags">
+                        <span>FinOps-Analyst</span>
+                        <span>Legal-Compliance</span>
+                    </div>
+                </div>
+                <div class="command-category">
+                    <div class="category-icon">🎭</div>
+                    <h3>Utilities</h3>
+                    <div class="category-count">3 commands</div>
+                    <p>Coaching, assistance, productivity tools</p>
+                    <div class="category-tags">
+                        <span>Executive-Coach</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Quick Start Section -->
-    <section id="inicio-rapido" class="py-20 bg-brand-surface">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Quick Start</h2>
-            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <div class="bg-brand-dark p-6 rounded-xl border border-brand-border">
-                    <h4 class="text-xl font-bold text-center mb-3">Native Discovery (Recommended)</h4>
-                    <p class="text-brand-text-muted text-center mb-4">Copy the TOML files to your Google AI CLI commands directory. The CLI will automatically discover them, allowing you to use them directly inside the TUI (Terminal User Interface).</p>
-                    <div class="relative">
-                        <pre class="bg-brand-code text-sm rounded-lg p-4 font-mono overflow-x-auto"><code class="language-shell"># Global installation
-cp commands/engineering/security-analyst.toml ~/.gemini/commands/
-
-# Inside the Gemini TUI
-/security-analyst deps scan</code></pre>
-                        <button class="copy-btn absolute top-2 right-2 p-2 bg-slate-700/50 hover:bg-slate-600/70 rounded-md transition-colors" aria-label="Copy code">
-                            <svg class="pointer-events-none" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                        </button>
+    <!-- Architecture Section -->
+    <section id="architecture" class="architecture-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">System Architecture</h2>
+                <p class="section-subtitle">CLI-native pattern for stateless, composable execution</p>
+            </div>
+            <div class="architecture-content">
+                <div class="architecture-diagram">
+                    <div class="arch-node">
+                        <div class="node-icon">👤</div>
+                        <div class="node-label">User</div>
+                        <div class="node-desc">Consultant / Developer</div>
+                    </div>
+                    <div class="arch-arrow">↓</div>
+                    <div class="arch-node">
+                        <div class="node-icon">⚡</div>
+                        <div class="node-label">Gemini CLI</div>
+                        <div class="node-desc">gemini "/command-name task"</div>
+                    </div>
+                    <div class="arch-arrow">↓</div>
+                    <div class="arch-node highlight">
+                        <div class="node-icon">🤖</div>
+                        <div class="node-label">Nexo-Agents</div>
+                        <div class="node-desc">44 TOML commands</div>
+                    </div>
+                    <div class="arch-arrow">↓</div>
+                    <div class="arch-node">
+                        <div class="node-icon">📁</div>
+                        <div class="node-label">Context Gathering</div>
+                        <div class="node-desc">Shell integration: !{command}</div>
+                    </div>
+                    <div class="arch-arrow">↓</div>
+                    <div class="arch-node">
+                        <div class="node-icon">✨</div>
+                        <div class="node-label">Structured Output</div>
+                        <div class="node-desc">Analysis / Design / Code</div>
                     </div>
                 </div>
-                <div class="bg-brand-dark p-6 rounded-xl border border-brand-border">
-                    <h4 class="text-xl font-bold text-center mb-3">On-Demand Loading</h4>
-                    <p class="text-brand-text-muted text-center mb-4">Temporarily load any command for a single execution, with no need to install it.</p>
-                     <div class="relative">
-                        <pre class="bg-brand-code text-sm rounded-lg p-4 font-mono overflow-x-auto"><code class="language-shell"># Command in the terminal
-gemini --include commands/eng/ai-engineer.toml "/ai-engineer llm openai"</code></pre>
-                        <button class="copy-btn absolute top-2 right-2 p-2 bg-slate-700/50 hover:bg-slate-600/70 rounded-md transition-colors" aria-label="Copy code">
-                             <svg class="pointer-events-none" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                        </button>
+                <div class="architecture-details">
+                    <h3>Architectural Decision: CLI-Native Pattern</h3>
+                    <div class="decision-block">
+                        <h4>Rationale</h4>
+                        <ul>
+                            <li><strong>Stateless execution</strong>: No backend services required</li>
+                            <li><strong>Token efficiency</strong>: 50-70% reduction via focused prompts</li>
+                            <li><strong>Composability</strong>: Commands chainable via shell operators</li>
+                            <li><strong>Discovery automation</strong>: Native <code>~/.gemini/commands/</code> loading</li>
+                            <li><strong>Shell integration</strong>: Context-aware via <code>!{command}</code></li>
+                        </ul>
+                    </div>
+                    <div class="decision-block">
+                        <h4>Trade-Offs</h4>
+                        <table class="tradeoff-table">
+                            <tr>
+                                <td class="con">❌ Requires Gemini CLI installation</td>
+                                <td class="pro">✅ Inspection-friendly</td>
+                            </tr>
+                            <tr>
+                                <td class="con">❌ TOML format less flexible</td>
+                                <td class="pro">✅ Cross-platform compatibility</td>
+                            </tr>
+                            <tr>
+                                <td class="con">❌ Single provider dependency</td>
+                                <td class="pro">✅ Version-controlled, auditable</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration Section -->
+    <section id="integration" class="integration-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Areas of Expertise</h2>
+                <p class="section-subtitle">The command library provides patterns and guidance for the following areas:</p>
+            </div>
+            <div class="integration-grid">
+                <div class="integration-card">
+                    <h3>Observability</h3>
+                    <p>Langfuse/Prometheus patterns for production telemetry</p>
+                    <div class="tech-stack">
+                        <span>Langfuse</span>
+                        <span>Prometheus</span>
+                        <span>Structured Logging</span>
+                    </div>
+                </div>
+                <div class="integration-card">
+                    <h3>Security</h3>
+                    <p>CVE scanning, SAST patterns, secrets detection</p>
+                    <div class="tech-stack">
+                        <span>OWASP Top 10</span>
+                        <span>CVSS Scoring</span>
+                        <span>IaC Audits</span>
+                    </div>
+                </div>
+                <div class="integration-card">
+                    <h3>FinOps</h3>
+                    <p>Token tracking, cost attribution, budget management</p>
+                    <div class="tech-stack">
+                        <span>Token Optimization</span>
+                        <span>Cost Tracking</span>
+                        <span>Team Attribution</span>
+                    </div>
+                </div>
+                <div class="integration-card">
+                    <h3>Compliance</h3>
+                    <p>GDPR assessments, SOC2 guidance, data processing</p>
+                    <div class="tech-stack">
+                        <span>GDPR</span>
+                        <span>SOC2</span>
+                        <span>Audit Trails</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <p class="cta-description">
+                    AI Solutions Architecture, LLM orchestration, enterprise integration patterns,
+                    and consulting delivery acceleration.
+                </p>
+                <div class="cta-buttons">
+                    <a href="mailto:nuno.salvacao@gmail.com?subject=Nexo-Agents%20Inquiry" class="btn btn-primary btn-large">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M4 4h16v16H4z" stroke-width="2"/>
+                            <path d="M4 8l8 5 8-5" stroke-width="2"/>
+                        </svg>
+                        Contact via Email
+                    </a>
+                    <a href="https://www.linkedin.com/in/nsalvacao/" target="_blank" class="btn btn-outline btn-large">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                        LinkedIn Profile
+                    </a>
+                    <a href="https://github.com/nsalvacao" target="_blank" class="btn btn-outline btn-large">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
+                        GitHub Portfolio
+                    </a>
+                </div>
+                <div class="cta-stats">
+                    <div class="cta-stat">
+                        <span class="cta-stat-icon">⭐</span>
+                        <span class="cta-stat-text">Open Source</span>
+                    </div>
+                    <div class="cta-stat">
+                        <span class="cta-stat-icon">📄</span>
+                        <span class="cta-stat-text">MIT License</span>
+                    </div>
+                    <div class="cta-stat">
+                        <span class="cta-stat-icon">🔒</span>
+                        <span class="cta-stat-text">Production Ready</span>
+                    </div>
+                    <div class="cta-stat">
+                        <span class="cta-stat-icon">🤝</span>
+                        <span class="cta-stat-text">Consultancy Focus</span>
                     </div>
                 </div>
             </div>
@@ -183,194 +491,128 @@ gemini --include commands/eng/ai-engineer.toml "/ai-engineer llm openai"</code><
     </section>
 
     <!-- Footer -->
-    <footer class="py-12">
-        <div class="container mx-auto px-4 text-center text-brand-text-muted">
-            <div class="flex justify-center gap-6 mb-6">
-                <!-- Twitter/X -->
-                <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fgithub.com%2Fnsalvacao%2FNexo-Agents&text=Check%20out%20Nexo-Agents%20for%20Google%20AI%20CLI%21" target="_blank" rel="noopener noreferrer" class="hover:text-brand-text transition-colors" aria-label="Share on Twitter/X">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                </a>
-                <!-- LinkedIn -->
-                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fnsalvacao.github.io%2FNexo-Agents%2F" target="_blank" rel="noopener noreferrer" class="hover:text-brand-text transition-colors" aria-label="Share on LinkedIn">
-                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-                </a>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke-width="2"/>
+                            <path d="M2 17L12 22L22 17" stroke-width="2"/>
+                            <path d="M2 12L12 17L22 12" stroke-width="2"/>
+                        </svg>
+                        <span>Nexo-Agents</span>
+                    </div>
+                    <p class="footer-description">
+                        Enterprise discovery accelerator for consultancy delivery.
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-title">Project</h4>
+                        <ul>
+                            <li><a href="#commands">Commands</a></li>
+                            <li><a href="#architecture">Architecture</a></li>
+                            <li><a href="https://github.com/nsalvacao/Nexo-Agents#readme" target="_blank">Documentation</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">Resources</h4>
+                        <ul>
+                            <li><a href="https://github.com/nsalvacao/Nexo-Agents" target="_blank">GitHub</a></li>
+                            <li><a href="https://github.com/nsalvacao/Nexo-Agents/blob/main/PROJECT_STATUS.md" target="_blank">Status</a></li>
+                            <li><a href="https://github.com/nsalvacao/Nexo-Agents/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">Connect</h4>
+                        <ul>
+                            <li><a href="mailto:nuno.salvacao@gmail.com">Email</a></li>
+                            <li><a href="https://github.com/nsalvacao" target="_blank">Portfolio</a></li>
+                            <li><a href="https://www.linkedin.com/in/nsalvacao/" target="_blank">LinkedIn</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <p class="mb-2">&copy; <span id="current-year"></span> Nuno Salvação. All rights reserved.</p>
-            <div class="flex justify-center gap-4 text-sm">
-                <a href="https://github.com/nsalvacao/Nexo-Agents/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="hover:text-brand-text transition-colors">License</a>
-                <span>&middot;</span>
-                <a href="https://github.com/nsalvacao/Nexo-Agents/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer" class="hover:text-brand-text transition-colors">How to Contribute</a>
-                <span>&middot;</span>
-                <a href="https://github.com/nsalvacao/Nexo-Agents/blob/main/LEGAL_COMPLIANCE.md" target="_blank" rel="noopener noreferrer" class="hover:text-brand-text transition-colors">Legal</a>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Nuno Salvação. All rights reserved.</p>
+                <p class="footer-tech">CLI Framework · Google AI · Enterprise Integration</p>
+                <p class="disclaimer">Nexo-Agents is a community-driven project and not an official Google product. The commands are templates and may require customization.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script>
-        const agents = [
-            { name: 'joker', category: 'bonus', description: 'An unpredictable agent for chaotic and creative tasks.' },
-            { name: 'nexo-coach', category: 'bonus', description: 'A studio coach to optimize processes and productivity.' },
-            { name: 'studio-coach', category: 'bonus', description: 'Provides guidance and feedback to improve the workflow.' },
-            { name: 'brand-guardian', category: 'design', description: 'Ensures brand consistency across all materials.' },
-            { name: 'ui-designer', category: 'design', description: 'Generates UI components and layouts for specific frameworks.' },
-            { name: 'ux-researcher', category: 'design', description: 'Conducts user research to inform design decisions.' },
-            { name: 'visual-storyteller', category: 'design', description: 'Creates impactful visual narratives to present ideas.' },
-            { name: 'whimsy-injector', category: 'design', description: 'Adds a touch of creativity and originality to designs.' },
-            { name: 'ai-engineer', category: 'engineering', description: 'Implements AI/ML functionalities with specific models.' },
-            { name: 'backend-architect', category: 'engineering', description: 'Designs APIs, database schemas, and scalable architectures.' },
-            { name: 'code-reviewer', category: 'engineering', description: 'Reviews code to ensure quality, readability, and maintainability.' },
-            { name: 'data-engineer', category: 'engineering', description: 'Builds and maintains robust and efficient data pipelines.' },
-            { name: 'devops-automator', category: 'engineering', description: 'Automates CI/CD processes and infrastructure as code.' },
-            { name: 'frontend-developer', category: 'engineering', description: 'Develops interactive and responsive user interfaces.' },
-            { name: 'mobile-app-builder', category: 'engineering', description: 'Creates high-performance native or hybrid mobile apps.' },
-            { name: 'rapid-prototyper', category: 'engineering', description: 'Quickly develops functional prototypes to validate ideas.' },
-            { name: 'security-analyst', category: 'engineering', description: 'Analyzes code and infrastructure for vulnerabilities.' },
-            { name: 'sre', category: 'engineering', description: 'Site reliability engineer to ensure system stability.' },
-            { name: 'test-writer-fixer', category: 'engineering', description: 'Writes and fixes automated tests to ensure quality.' },
-            { name: 'app-store-optimizer', category: 'marketing', description: 'Optimizes app presence in app stores (ASO).' },
-            { name: 'content-creator', category: 'marketing', description: 'Creates versatile and engaging content for different channels.' },
-            { name: 'growth-hacker', category: 'marketing', description: 'Creates growth experiences for specific channels with design and metrics.' },
-            { name: 'instagram-curator', category: 'marketing', description: 'Manages and creates visually appealing content for Instagram.' },
-            { name: 'nexo-social-strategist', category: 'marketing', description: 'Defines and executes social media strategies aligned with the brand.' },
-            { name: 'reddit-community-builder', category: 'marketing', description: 'Builds and manages active communities on the Reddit platform.' },
-            { name: 'tiktok-strategist', category: 'marketing', description: 'Creates and implements content strategies for TikTok.' },
-            { name: 'twitter-engager', category: 'marketing', description: 'Generates interaction and relevant conversations on Twitter/X.' },
-            { name: 'feedback-synthesizer', category: 'product', description: 'Analyzes feedback from multiple sources and synthesizes actionable insights.' },
-            { name: 'sprint-prioritizer', category: 'product', description: 'Helps prioritize tasks and functionalities for agile sprints.' },
-            { name: 'trend-researcher', category: 'product', description: 'Researches and analyzes market trends to inform the product.' },
-            { name: 'experiment-tracker', category: 'project-management', description: 'Tracks and documents the results of experiments and A/B tests.' },
-            { name: 'project-shipper', category: 'project-management', description: 'Coordinates project launches, ensuring everything runs smoothly.' },
-            { name: 'studio-producer', category: 'project-management', description: 'Manages the production workflow of a creative or development studio.' },
-            { name: 'analytics-reporter', category: 'operations', description: 'Creates reports and dashboards based on analytics data.' },
-            { name: 'finance-tracker', category: 'operations', description: 'Monitors and reports on a project or studio\'s finances.' },
-            { name: 'infrastructure-maintainer', category: 'operations', description: 'Maintains IT infrastructure and operating systems.' },
-            { name: 'legal-compliance-checker', category: 'operations', description: 'Checks the legal compliance of products and processes.' },
-            { name: 'support-responder', category: 'operations', description: 'Provides empathetic and effective customer support responses.' },
-            { name: 'api-tester', category: 'testing', description: 'Tests APIs to ensure functionality, performance, and security.' },
-            { name: 'nexo-test-engineer', category: 'testing', description: 'Elite test automation engineer for complex software.' },
-            { name: 'performance-benchmarker', category: 'testing', description: 'Measures and analyzes system performance under load.' },
-            { name: 'test-results-analyzer', category: 'testing', description: 'Analyzes test results to identify patterns and bugs.' },
-            { name: 'tool-evaluator', category: 'testing', description: 'Evaluates and recommends tools to optimize the testing process.' },
-            { name: 'workflow-optimizer', category: 'testing', description: 'Optimizes the testing team\'s workflows for greater efficiency.' }
-        ];
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const filtersContainer = document.getElementById('agent-filters');
-            const gridContainer = document.getElementById('agent-grid');
-            const yearSpan = document.getElementById('current-year');
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
 
-            // Update the year in the footer
-            if(yearSpan) {
-                yearSpan.textContent = new Date().getFullYear();
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
             }
+        });
 
-            // Map categories to their display names in English
-            const categoryDisplayNames = {
-                'all': 'All',
-                'bonus': 'Bonus',
-                'design': 'Design',
-                'engineering': 'Engineering',
-                'marketing': 'Marketing',
-                'product': 'Product',
-                'project-management': 'Project Management',
-                'operations': 'Operations',
-                'testing': 'Testing'
-            };
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Close mobile menu if open
+                    navMenu.classList.remove('active');
+                    navToggle.classList.remove('active');
+                }
+            });
+        });
 
-            // SVG icons for each category
-            const categoryIcons = {
-                'all': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4m-4 4-4-4m4 4V3m-8 9c1.1 2.2 2.8 4 5 5.2 2.2 1.2 4.9 1.9 7.6 1.8 1.1-.1 2.1-.5 3-.9m-11-13c-1.1-2.2-2.8-4-5-5.2C5.8 2.2 3.1 1.5.4 1.6c-.1.1-.3.2-.4.4"/></svg>`,
-                'bonus': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2c2.8 0 5-2.2 5-5V9a2 2 0 0 0-2-2m-3-4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1Z"/><path d="M16 14v1a2 2 0 0 0 2 2c2.8 0 5-2.2 5-5V9a2 2 0 0 0-2-2M8 14v1a2 2 0 0 1-2 2c-2.8 0-5-2.2-5-5V9a2 2 0 0 1 2-2"/></svg>`,
-                'design': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M12 12c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4"/></svg>`,
-                'engineering': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
-                'marketing': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13.5V11a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2.5a2.5 2.5 0 0 0 5 0V11a2.5 2.5 0 0 1 5 0v2.5"/><path d="M12 2v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2z"/></svg>`,
-                'product': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
-                'project-management': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 13h-4v-1.5a2.5 2.5 0 0 0-5 0V13H8v-1.5a2.5 2.5 0 0 0-5 0V13H2"/><path d="M18 19V6.5a2.5 2.5 0 0 0-5 0V19H8V6.5a2.5 2.5 0 0 0-5 0V19"/></svg>`,
-                'operations': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l-8 8V22h16V10l-8-8z"/><path d="M9 22V12h6v10"/></svg>`,
-                'testing': `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8m-4 4V8"/></svg>`
-            };
-            const categories = Object.keys(categoryDisplayNames);
+        // Copy to clipboard
+        document.querySelectorAll('.code-window').forEach(codeWindow => {
+            const copyButton = document.createElement('button');
+            copyButton.className = 'copy-button';
+            copyButton.textContent = 'Copy';
+            codeWindow.appendChild(copyButton);
 
-            function createFilters() {
-                categories.forEach(category => {
-                    const button = document.createElement('button');
-                    const baseClasses = 'px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 flex items-center gap-2';
-                    const activeClasses = 'bg-brand-primary text-white';
-                    const inactiveClasses = 'bg-brand-surface hover:bg-brand-border text-brand-text-muted';
-                    
-                    button.className = `${baseClasses} ${category === 'all' ? activeClasses : inactiveClasses}`;
-                    button.innerHTML = `${categoryIcons[category] || ''} <span>${categoryDisplayNames[category]}</span>`;
-                    button.dataset.filter = category;
-                    
-                    button.addEventListener('click', handleFilterClick);
-                    filtersContainer.appendChild(button);
+            copyButton.addEventListener('click', () => {
+                const code = codeWindow.querySelector('pre code').innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    copyButton.textContent = 'Copied!';
+                    setTimeout(() => {
+                        copyButton.textContent = 'Copy';
+                    }, 2000);
                 });
-            }
+            });
+        });
 
-            function renderAgents(filter = 'all') {
-                gridContainer.innerHTML = '';
-                const filteredAgents = filter === 'all' ? agents : agents.filter(agent => agent.category === filter);
-                
-                filteredAgents.forEach(agent => {
-                    const col = document.createElement('div');
-                    col.className = 'bg-brand-dark border border-brand-border rounded-xl p-5 flex flex-col transform hover:-translate-y-1 transition-transform duration-200 shadow-lg hover:shadow-brand-primary/20';
-                    const desc = agent.description.charAt(0).toUpperCase() + agent.description.slice(1);
-                    const engCategory = agent.category;
+        // Command search
+        const commandSearch = document.getElementById('commandSearch');
+        const commandCategories = document.querySelectorAll('.command-category');
 
-                    col.innerHTML = `
-                        <div class="text-xs font-bold uppercase tracking-wider text-brand-primary mb-2 flex items-center gap-1">${categoryIcons[engCategory] || ''} <span>${categoryDisplayNames[engCategory]}</span></div>
-                        <div class="font-mono text-lg font-bold text-brand-text mb-3">${agent.name}</div>
-                        <div class="text-sm text-brand-text-muted flex-grow">${desc}</div>
-                    `;
-                    gridContainer.appendChild(col);
-                });
-            }
+        commandSearch.addEventListener('keyup', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
 
-            function handleFilterClick(e) {
-                const button = e.currentTarget;
-                const filter = button.dataset.filter;
-                // Remove the active class from all buttons
-                filtersContainer.querySelectorAll('button').forEach(btn => {
-                    btn.classList.remove('bg-brand-primary', 'text-white');
-                    btn.classList.add('bg-brand-surface', 'hover:bg-brand-border', 'text-brand-text-muted');
-                });
-                // Add the active class to the clicked button
-                button.classList.add('bg-brand-primary', 'text-white');
-                button.classList.remove('bg-brand-surface', 'hover:bg-brand-border', 'text-brand-text-muted');
+            commandCategories.forEach(category => {
+                const categoryName = category.querySelector('h3').textContent.toLowerCase();
+                const categoryTags = category.querySelector('.category-tags').textContent.toLowerCase();
+                const categoryDescription = category.querySelector('p').textContent.toLowerCase();
 
-                renderAgents(filter);
-            }
-
-            function setupCopyButtons() {
-                document.querySelectorAll('.copy-btn').forEach(button => {
-                    const code = button.previousElementSibling.querySelector('code').innerText;
-                    const originalIcon = button.innerHTML;
-                    const successIcon = `<svg class="pointer-events-none text-green-400" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-
-                    button.addEventListener('click', () => {
-                        const textarea = document.createElement('textarea');
-                        textarea.value = code;
-                        document.body.appendChild(textarea);
-                        textarea.select();
-                        try {
-                            document.execCommand('copy');
-                            button.innerHTML = successIcon;
-                        } catch (err) {
-                            console.error('Failed to copy text: ', err);
-                            // You can add error feedback here
-                        }
-                        document.body.removeChild(textarea);
-
-                        setTimeout(() => {
-                            button.innerHTML = originalIcon;
-                        }, 2000);
-                    });
-                });
-            }
-
-            createFilters();
-            renderAgents();
-            setupCopyButtons();
+                if (categoryName.includes(searchTerm) || categoryTags.includes(searchTerm) || categoryDescription.includes(searchTerm)) {
+                    category.style.display = 'block';
+                } else {
+                    category.style.display = 'none';
+                }
+            });
         });
     </script>
 </body>

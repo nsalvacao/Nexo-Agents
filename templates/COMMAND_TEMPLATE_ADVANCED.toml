@@ -2,13 +2,18 @@
 #
 # Use this template for commands that need:
 # - Structured argument parsing
-# - Multiple shell command integrations  
+# - Multiple shell command integrations
 # - JSON output for automation/scripting
 # - Error handling and validation
+#
+# TOML STRING SYNTAX:
+# - Use ''' (literal strings) for prompts with shell commands containing backslashes
+# - Literal strings don't process escape sequences, avoiding "Reserved escape sequence" errors
+# - This is especially important for grep patterns like grep 'api\|key' or regex patterns
 
 description = "Advanced template for complex commands with structured I/O"
 
-prompt = """
+prompt = '''
 You are a [specific expert role] specializing in [domain].
 
 ## INPUT PARSING
@@ -26,7 +31,7 @@ Based on parsed arguments: [specific task description]
 ## VALIDATION
 Before proceeding, verify:
 - Required files exist
-- Dependencies are available  
+- Dependencies are available
 - User has necessary permissions
 
 ## OUTPUT FORMAT
@@ -53,4 +58,4 @@ If any step fails, return:
 ```
 
 Focus on being precise, actionable, and automation-friendly.
-"""
+'''

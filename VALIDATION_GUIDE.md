@@ -18,9 +18,58 @@ ls .gemini/commands/       # Project commands (if exists)
 
 ### ✅ TOML Format Validation
 ```bash
-# Verify TOML syntax for all commands
-find nexo-agents -name "*.toml" -exec echo "Checking: {}" \; -exec toml-test {} \;
+# Verify TOML syntax for all commands (using Python)
+python3 -c "
+import toml
+import os
+errors = []
+for root, dirs, files in os.walk('commands'):
+    for file in files:
+        if file.endswith('.toml'):
+            filepath = os.path.join(root, file)
+            try:
+                with open(filepath, 'r') as f:
+                    toml.load(f)
+            except Exception as e:
+                errors.append((filepath, str(e)))
+if errors:
+    print('Errors found:')
+    for path, error in errors:
+        print(f'{path}: {error}')
+    exit(1)
+else:
+    print('All TOML files are valid!')
+"
 ```
+
+### 📝 TOML Best Practices
+
+**String Quoting for Prompts:**
+- Use **literal strings** `'''...'''` for prompts containing shell commands with backslashes
+- Literal strings don't process escape sequences, avoiding "Reserved escape sequence" errors
+- This is critical for grep patterns like `grep 'api\|key'` or regex patterns
+
+**Example - Incorrect (causes "Reserved escape sequence used" error):**
+```toml
+prompt = """
+!{grep -i 'api\|key' .env.example}
+"""
+```
+
+**Example - Correct:**
+```toml
+prompt = '''
+!{grep -i 'api\|key' .env.example}
+'''
+```
+
+**Why this matters:**
+- TOML basic strings `"""..."""` process escape sequences like `\n`, `\t`, `\\`
+- Invalid sequences like `\|`, `\w`, `\s` cause parsing errors
+- Literal strings `'''...'''` only process `'''` and `\\`, treating other backslashes literally
+- All Nexo-Agents commands use literal strings for reliability
+
+**Reference:** [TOML v1.0.0 Specification - Literal Strings](https://toml.io/en/v1.0.0#string)
 
 ## 🧪 Command Testing Protocol
 

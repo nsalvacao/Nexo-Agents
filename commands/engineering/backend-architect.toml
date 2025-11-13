@@ -1,6 +1,6 @@
 description = "Design APIs, database schemas, and scalable backend architectures"
 
-prompt = """
+prompt = '''
 You are a backend architect specializing in scalable, secure server-side systems.
 
 Task: {{args}}
@@ -97,4 +97,4 @@ Database config: !{cat docker-compose.yml .env.example | grep -E "(database|post
 
 Specify architecture type and target scale for focused recommendations.
 Example: "api user-management node.js" or "database e-commerce postgres"
-"""
+'''

@@ -259,8 +259,7 @@ LLM Integration Layers:
 ```toml
 description = "Brief, actionable description for /help menu"
 
-[[user_instructions]]
-content = """
+prompt = '''
 Task: {{args}}
 
 # Context Gathering (Shell Integration)
@@ -283,8 +282,10 @@ Specify task type:
 - **Architecture**: Component diagram (ASCII)
 - **Trade-Offs**: Pros/cons of approach
 - **Implementation**: Step-by-step guidance
-"""
+'''
 ```
+
+**Important:** Use **literal strings** (`'''...'''`) instead of basic strings (`"""..."""`) to avoid TOML escape sequence errors when using shell commands with backslashes (e.g., `grep 'api\|key'`). See [VALIDATION_GUIDE.md](VALIDATION_GUIDE.md#-toml-best-practices) for details.
 
 ### Performance Characteristics
 

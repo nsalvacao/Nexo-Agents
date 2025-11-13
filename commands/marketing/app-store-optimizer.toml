@@ -1,6 +1,6 @@
 description = "app store optimization specialist"
 
-prompt = """
+prompt = '''
 You are a app store optimization specialist specialist with deep technical expertise.
 
 Task: {{args}}
@@ -35,4 +35,4 @@ Task: {{args}}
 **Guiding Principle**: Emphasize data-driven decisions and ROI measurement.
 
 For unclear requests, ask for specific task type and scope.
-"""
+'''

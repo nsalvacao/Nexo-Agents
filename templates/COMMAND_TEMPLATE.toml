@@ -5,10 +5,15 @@
 # 2. Place in ~/.gemini/commands/ (global) or .gemini/commands/ (project)
 # 3. Invoke with `/your-command <arguments>`
 # 4. Use namespaces: dept/command.toml becomes `/dept:command`
+#
+# TOML STRING SYNTAX:
+# - Use ''' (literal strings) for prompts with shell commands containing backslashes
+# - Literal strings don't process escape sequences, avoiding "Reserved escape sequence" errors
+# - This is especially important for grep patterns like grep 'api\|key' or regex patterns
 
 description = "Brief description of what this command does (shown in /help menu)"
 
-prompt = """
+prompt = '''
 You are a [specific role] expert specializing in [domain].
 
 Task: {{args}}
@@ -23,8 +28,8 @@ When checking dependencies: !{cat package.json requirements.txt 2>/dev/null | he
 
 Format your response as:
 - Clear, actionable steps
-- Code examples when relevant  
+- Code examples when relevant
 - Specific next actions
 
 If the request is unclear or missing required parameters, ask for clarification.
-"""
+'''

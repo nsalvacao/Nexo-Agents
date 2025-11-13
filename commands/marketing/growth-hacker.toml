@@ -1,6 +1,6 @@
 description = "Cria experiências de growth para canais específicos com design e métricas"
 
-prompt = """
+prompt = '''
 Cria experiência de growth: {{args}}
 
 !{find . -name "*analytics*" -o -name "*tracking*" -o -name "*metrics*" -o -name "*growth*" 2>/dev/null | head -10}
@@ -54,4 +54,4 @@ Cria experiência de growth: {{args}}
 - `channel:organic metric:signup_conversion timeframe:2weeks`
 - `channel:email metric:retention timeframe:8weeks`
 - `channel:paid metric:CAC timeframe:1week`
-"""
+'''
